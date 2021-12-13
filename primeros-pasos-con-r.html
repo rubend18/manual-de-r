@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.5 Primeros pasos con R | Manual de R</title>
+  <meta name="description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.5 Primeros pasos con R | Manual de R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/img/cover.jpg" />
+  <meta property="og:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="github-repo" content="rubend18/manual-de-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.5 Primeros pasos con R | Manual de R" />
+  
+  <meta name="twitter:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="twitter:image" content="/img/cover.jpg" />
+
+<meta name="author" content="Rubén Darío Jaramillo (rubend18@hotmail.com)" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="instalación-del-entorno-de-r.html"/>
+<link rel="next" href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Manual de R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path="compilación.html"><a href="compilación.html"><i class="fa fa-check"></i>Compilación</a></li>
+<li class="chapter" data-level="1" data-path="introducción-a-r.html"><a href="introducción-a-r.html"><i class="fa fa-check"></i><b>1</b> Introducción a R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="qué-es-r.html"><a href="qué-es-r.html"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es R?</a></li>
+<li class="chapter" data-level="1.2" data-path="orígenes-y-antecedentes.html"><a href="orígenes-y-antecedentes.html"><i class="fa fa-check"></i><b>1.2</b> Orígenes y antecedentes</a></li>
+<li class="chapter" data-level="1.3" data-path="por-qué-r.html"><a href="por-qué-r.html"><i class="fa fa-check"></i><b>1.3</b> ¿Por qué R?</a></li>
+<li class="chapter" data-level="1.4" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html"><i class="fa fa-check"></i><b>1.4</b> Instalación del entorno de R</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-windows-y-mac-os-x"><i class="fa fa-check"></i><b>1.4.1</b> Instalación en Windows y Mac OS X</a></li>
+<li class="chapter" data-level="1.4.2" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-linux"><i class="fa fa-check"></i><b>1.4.2</b> Instalación en Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html"><i class="fa fa-check"></i><b>1.5</b> Primeros pasos con R</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#realizando-operaciones-basicas"><i class="fa fa-check"></i><b>1.5.1</b> Realizando operaciones basicas</a></li>
+<li class="chapter" data-level="1.5.2" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#llamando-a-funciones"><i class="fa fa-check"></i><b>1.5.2</b> Llamando a funciones</a></li>
+<li class="chapter" data-level="1.5.3" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#accediendo-a-la-ayuda-de-r"><i class="fa fa-check"></i><b>1.5.3</b> Accediendo a la ayuda de R</a></li>
+<li class="chapter" data-level="1.5.4" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#trabajando-con-variables"><i class="fa fa-check"></i><b>1.5.4</b> Trabajando con variables</a></li>
+<li class="chapter" data-level="1.5.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.5.5</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.5.6" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#ejecutando-expresiones-desde-un-fichero-de-texto"><i class="fa fa-check"></i><b>1.5.6</b> Ejecutando expresiones desde un fichero de texto</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><i class="fa fa-check"></i><b>1.6</b> Consejos prácticos sobre el uso de la consola de R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="el-lenguaje-r.html"><a href="el-lenguaje-r.html"><i class="fa fa-check"></i><b>2</b> El lenguaje R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="características-básicas-del-lenguaje-r.html"><a href="características-básicas-del-lenguaje-r.html"><i class="fa fa-check"></i><b>2.1</b> Características básicas del lenguaje R</a></li>
+<li class="chapter" data-level="2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html"><i class="fa fa-check"></i><b>2.2</b> Tipos de datos y operadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#tipos-básicos-de-datos"><i class="fa fa-check"></i><b>2.2.1</b> Tipos básicos de datos</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#operadores"><i class="fa fa-check"></i><b>2.2.2</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html"><i class="fa fa-check"></i><b>2.3</b> Estructura de datos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#vectores"><i class="fa fa-check"></i><b>2.3.1</b> Vectores</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#matrices-y-arrays"><i class="fa fa-check"></i><b>2.3.2</b> Matrices y arrays</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#listas"><i class="fa fa-check"></i><b>2.3.3</b> Listas</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#factores-factors"><i class="fa fa-check"></i><b>2.3.4</b> Factores (factors)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#tablas-data-frames"><i class="fa fa-check"></i><b>2.3.5</b> Tablas (data frames)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html"><i class="fa fa-check"></i><b>2.4</b> Estructuras de control</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#condicionales"><i class="fa fa-check"></i><b>2.4.1</b> Condicionales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#bucles"><i class="fa fa-check"></i><b>2.4.2</b> Bucles</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="funciones.html"><a href="funciones.html"><i class="fa fa-check"></i><b>2.5</b> Funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-datos-con-r-i.html"><a href="análisis-de-datos-con-r-i.html"><i class="fa fa-check"></i><b>3</b> Análisis de datos con R (I)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Manipulación de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#tratamiento-de-valores-desconocidos"><i class="fa fa-check"></i><b>3.1.1</b> Tratamiento de valores desconocidos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#conversión-de-tipos"><i class="fa fa-check"></i><b>3.1.2</b> Conversión de tipos</a></li>
+<li class="chapter" data-level="3.1.3" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#ordenación-de-datos"><i class="fa fa-check"></i><b>3.1.3</b> Ordenación de datos</a></li>
+<li class="chapter" data-level="3.1.4" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#búsqueda-de-datos"><i class="fa fa-check"></i><b>3.1.4</b> Búsqueda de datos</a></li>
+<li class="chapter" data-level="3.1.5" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#manipulación-de-cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.1.5</b> Manipulación de cadenas de caracteres</a></li>
+<li class="chapter" data-level="3.1.6" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#importarexportar-datos-desdea-fichero"><i class="fa fa-check"></i><b>3.1.6</b> Importar/exportar datos desde/a fichero</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html"><i class="fa fa-check"></i><b>3.2</b> Estadística básica con R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#distribuciones-estadísticas"><i class="fa fa-check"></i><b>3.2.1</b> Distribuciones estadísticas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2.2</b> Estadística descriptiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#test-estadísticos-básicos"><i class="fa fa-check"></i><b>3.2.3</b> Test estadísticos básicos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html"><i class="fa fa-check"></i><b>3.3</b> Introducción a la minería de datos con R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#análisis-de-correlación"><i class="fa fa-check"></i><b>3.3.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#regresión"><i class="fa fa-check"></i><b>3.3.2</b> Regresión</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#clasificación"><i class="fa fa-check"></i><b>3.3.3</b> Clasificación</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#agrupamiento-clustering"><i class="fa fa-check"></i><b>3.3.4</b> Agrupamiento (clustering)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-datos-con-r-ii.html"><a href="análisis-de-datos-con-r-ii.html"><i class="fa fa-check"></i><b>4</b> Análisis de datos con R (II)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html"><i class="fa fa-check"></i><b>4.1</b> Minería de texto</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html#introducción"><i class="fa fa-check"></i><b>4.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1.2" data-path="minería-de-texto.html"><a href="minería-de-texto.html#minería-de-texto-con-tm"><i class="fa fa-check"></i><b>4.1.2</b> Minería de texto con tm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="minería-de-texto.html"><a href="minería-de-texto.html#encontrar-términos-frecuentes"><i class="fa fa-check"></i><b>4.1.3</b> Encontrar términos frecuentes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="minería-de-texto.html"><a href="minería-de-texto.html#clasificación-1"><i class="fa fa-check"></i><b>4.1.4</b> Clasificación</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html"><i class="fa fa-check"></i><b>4.2</b> Análisis de grafos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#primeros-pasos-con-igraph"><i class="fa fa-check"></i><b>4.2.2</b> Primeros pasos con igraph</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#importandoexportando-grafos-desdea-fichero"><i class="fa fa-check"></i><b>4.2.3</b> Importando/exportando grafos desde/a fichero</a></li>
+<li class="chapter" data-level="4.2.4" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#análisis-de-grafos-con-igraph"><i class="fa fa-check"></i><b>4.2.4</b> Análisis de grafos con igraph</a></li>
+<li class="chapter" data-level="4.2.5" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#información-básica-de-grafos"><i class="fa fa-check"></i><b>4.2.5</b> Información básica de grafos</a></li>
+<li class="chapter" data-level="4.2.6" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#medidas-de-centralidad"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de centralidad</a></li>
+<li class="chapter" data-level="4.2.7" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#camino-más-corto"><i class="fa fa-check"></i><b>4.2.7</b> Camino más corto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="gráficos-y-visualización-de-datos.html"><a href="gráficos-y-visualización-de-datos.html"><i class="fa fa-check"></i><b>5</b> Gráficos y visualización de datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creando-gráficos-básicos-con-r.html"><a href="creando-gráficos-básicos-con-r.html"><i class="fa fa-check"></i><b>5.1</b> Creando gráficos básicos con R</a></li>
+<li class="chapter" data-level="5.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html"><i class="fa fa-check"></i><b>5.2</b> Personalización de gráficos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#símbolos-y-líneas"><i class="fa fa-check"></i><b>5.2.1</b> Símbolos y líneas</a></li>
+<li class="chapter" data-level="5.2.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#colores"><i class="fa fa-check"></i><b>5.2.2</b> Colores</a></li>
+<li class="chapter" data-level="5.2.3" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#límites-de-los-ejes"><i class="fa fa-check"></i><b>5.2.3</b> Límites de los ejes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#leyendas-y-texto"><i class="fa fa-check"></i><b>5.2.4</b> Leyendas y texto</a></li>
+<li class="chapter" data-level="5.2.5" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#añadiendo-una-rejilla"><i class="fa fa-check"></i><b>5.2.5</b> Añadiendo una rejilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="combinando-gráficos.html"><a href="combinando-gráficos.html"><i class="fa fa-check"></i><b>5.3</b> Combinando gráficos</a></li>
+<li class="chapter" data-level="5.4" data-path="exportando-gráficos-a-fichero.html"><a href="exportando-gráficos-a-fichero.html"><i class="fa fa-check"></i><b>5.4</b> Exportando gráficos a fichero</a></li>
+<li class="chapter" data-level="5.5" data-path="interacción-básica-con-gráficos.html"><a href="interacción-básica-con-gráficos.html"><i class="fa fa-check"></i><b>5.5</b> Interacción básica con gráficos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="información-extra.html"><a href="información-extra.html"><i class="fa fa-check"></i>Información extra</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Manual de R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="primeros-pasos-con-r" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Primeros pasos con R</h2>
+<p>Tras haber seguido los pasos indicados en la sección anterior, deberíamos tener correctamente instalado el entorno R en nuestro sistema. En Windows y Mac OS X, como resultado de la instalación se creará un icono (que usualmente en Windows estará en el escritorio y en Mac OS X accesible a través del Launchpad) en el que al hacer clic lanzaremos el entorno de ejecución de R.</p>
+<p>Al lanzar el entorno de ejecución en Windows y Mac OS X aparecerá una ventana. Esta ventana nos ofrecerá una consola (R console) que utilizaremos para poder interactuar con el entorno de R. La consola de R funciona de una manera similar a la de un intérprete de comandos de un sistema operativo clásico: teclearemos ahí nuestros comandos (denominados expresiones en R) y obtendremos a través de ella los resultados (incluyendo mensajes de error si algo va mal).</p>
+<p><img src="img/fig5.jpg" /></p>
+<p>Figura 5. Ejemplo de consola de R (en Mac OS X).</p>
+<p>En Linux, para poder acceder a esta consola simplemente será necesario ejecutar en el intérprete de comandos del sistema operativo la orden R (en mayúsculas). En este caso no aparecerá una nueva ventana, sino que usaremos la ventana del intérprete de comandos como consola de R.</p>
+<p>En la consola podemos ver que existe una marca (denominada prompt), que usualmente es el símbolo de mayor que (&gt;) y que nos indica que el sistema está esperando a que tecleemos nuestros comandos. Veremos en las siguientes secciones algunos comandos básicos con los que empezar a trabajar con R en la práctica.</p>
+<div id="realizando-operaciones-basicas" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Realizando operaciones basicas</h3>
+<p>La forma más sencilla de empezar a trabajar con R, es utilizando el software como si de una calculadora avanzada se tratase. Simplemente tendremos que escribir la expresión que queramos evaluar en la consola y pulsar la tecla de fin de línea (enter). R nos devolverá el resultado impreso en la consola.</p>
+<p>Por ejemplo, para sumar dos números:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="primeros-pasos-con-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">3</span> </span>
+<span id="cb5-2"><a href="primeros-pasos-con-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 5 </span></span></code></pre></div>
+<p>Aunque se pueden llevar a cabo todo tipo de operaciones aritméticas:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="primeros-pasos-con-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">3</span> </span>
+<span id="cb6-2"><a href="primeros-pasos-con-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 6</span></span>
+<span id="cb6-3"><a href="primeros-pasos-con-r.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="primeros-pasos-con-r.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> </span>
+<span id="cb6-5"><a href="primeros-pasos-con-r.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.6666667 </span></span>
+<span id="cb6-6"><a href="primeros-pasos-con-r.html#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="primeros-pasos-con-r.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span> </span>
+<span id="cb6-8"><a href="primeros-pasos-con-r.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 8 </span></span>
+<span id="cb6-9"><a href="primeros-pasos-con-r.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="primeros-pasos-con-r.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">**</span><span class="dv">3</span> </span>
+<span id="cb6-11"><a href="primeros-pasos-con-r.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 8 </span></span>
+<span id="cb6-12"><a href="primeros-pasos-con-r.html#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="primeros-pasos-con-r.html#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">%%</span><span class="dv">2</span> </span>
+<span id="cb6-14"><a href="primeros-pasos-con-r.html#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span>
+<span id="cb6-15"><a href="primeros-pasos-con-r.html#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="primeros-pasos-con-r.html#cb6-16" aria-hidden="true" tabindex="-1"></a>(<span class="fl">2.2+3.5</span>)<span class="sc">*</span><span class="fl">2.1</span> </span>
+<span id="cb6-17"><a href="primeros-pasos-con-r.html#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 11.97 </span></span>
+<span id="cb6-18"><a href="primeros-pasos-con-r.html#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="primeros-pasos-con-r.html#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">3-4</span> </span>
+<span id="cb6-20"><a href="primeros-pasos-con-r.html#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2 </span></span>
+<span id="cb6-21"><a href="primeros-pasos-con-r.html#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="primeros-pasos-con-r.html#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">%/%</span><span class="dv">2</span> </span>
+<span id="cb6-23"><a href="primeros-pasos-con-r.html#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2</span></span></code></pre></div>
+<p>Como se puede ver, las operaciones básicas utilizan los operadores habitualmente empleados en los lenguajes de programación (+, -, *, /), teniendo en cuenta que en el caso del operador módulo (resto de la división entera de dos números) se utiliza %% (cuando lo más usual en otros lenguajes es usar %), que es posible realizar potenciación tanto con el carácter ^ como con el doble asterisco ** y que si queremos que la operación de división trate a sus argumentos como números enteros, deberemos utilizar el operador %/%.</p>
+<p>También resulta interesante comprobar qué pasa cuando realizamos operaciones que resultan en un indeterminado o en infinito:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="primeros-pasos-con-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">/</span><span class="dv">0</span> </span>
+<span id="cb7-2"><a href="primeros-pasos-con-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] Inf </span></span>
+<span id="cb7-3"><a href="primeros-pasos-con-r.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="primeros-pasos-con-r.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cn">Inf</span><span class="sc">/</span><span class="cn">Inf</span> </span>
+<span id="cb7-5"><a href="primeros-pasos-con-r.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] NaN </span></span>
+<span id="cb7-6"><a href="primeros-pasos-con-r.html#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="primeros-pasos-con-r.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="sc">/</span><span class="dv">0</span> </span>
+<span id="cb7-8"><a href="primeros-pasos-con-r.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] NaN</span></span>
+<span id="cb7-9"><a href="primeros-pasos-con-r.html#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="primeros-pasos-con-r.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="cn">Inf</span><span class="sc">/</span><span class="dv">2</span> </span>
+<span id="cb7-11"><a href="primeros-pasos-con-r.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -Inf </span></span></code></pre></div>
+<p>Como se puede ver este tipo de operaciones están soportadas en el entorno de R pudiendo utilizarse el símbolo Inf para referirse a infinito y NaN (Not a Number) para referirse a valores indeterminados.</p>
+</div>
+<div id="llamando-a-funciones" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Llamando a funciones</h3>
+<p>Además de los operadores básicos, R proporciona todo un conjunto de funciones que podemos utilizar en nuestras expresiones. Básicamente la llamada a funciones desde la consola de R funciona de una manera similar a la de cualquier lenguaje de programación: proporcionaremos el nombre de la función y sus argumentos y obtendremos su resultado impreso en consola. Veamos algunos ejemplos:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="primeros-pasos-con-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">1</span>) </span>
+<span id="cb8-2"><a href="primeros-pasos-con-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2.718282 </span></span>
+<span id="cb8-3"><a href="primeros-pasos-con-r.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="primeros-pasos-con-r.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">exp</span>(<span class="dv">1</span>)) </span>
+<span id="cb8-5"><a href="primeros-pasos-con-r.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span>
+<span id="cb8-6"><a href="primeros-pasos-con-r.html#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="primeros-pasos-con-r.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">log10</span>(<span class="dv">10</span>) </span>
+<span id="cb8-8"><a href="primeros-pasos-con-r.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span>
+<span id="cb8-9"><a href="primeros-pasos-con-r.html#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="primeros-pasos-con-r.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">log2</span>(<span class="dv">2</span>) </span>
+<span id="cb8-11"><a href="primeros-pasos-con-r.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span>
+<span id="cb8-12"><a href="primeros-pasos-con-r.html#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="primeros-pasos-con-r.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>) </span>
+<span id="cb8-14"><a href="primeros-pasos-con-r.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2 </span></span>
+<span id="cb8-15"><a href="primeros-pasos-con-r.html#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="primeros-pasos-con-r.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cos</span>(pi) </span>
+<span id="cb8-17"><a href="primeros-pasos-con-r.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -1 </span></span>
+<span id="cb8-18"><a href="primeros-pasos-con-r.html#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="primeros-pasos-con-r.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi) </span>
+<span id="cb8-20"><a href="primeros-pasos-con-r.html#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1.224647e-16 </span></span>
+<span id="cb8-21"><a href="primeros-pasos-con-r.html#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="primeros-pasos-con-r.html#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tan</span>(pi) </span>
+<span id="cb8-23"><a href="primeros-pasos-con-r.html#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -1.224647e-16 </span></span>
+<span id="cb8-24"><a href="primeros-pasos-con-r.html#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="primeros-pasos-con-r.html#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(<span class="sc">-</span><span class="fl">2.4</span>) </span>
+<span id="cb8-26"><a href="primeros-pasos-con-r.html#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2.4 </span></span>
+<span id="cb8-27"><a href="primeros-pasos-con-r.html#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="primeros-pasos-con-r.html#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="sc">-</span><span class="fl">2.4</span>) </span>
+<span id="cb8-29"><a href="primeros-pasos-con-r.html#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2 </span></span>
+<span id="cb8-30"><a href="primeros-pasos-con-r.html#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="primeros-pasos-con-r.html#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="fu">floor</span>(<span class="sc">-</span><span class="fl">2.4</span>) </span>
+<span id="cb8-32"><a href="primeros-pasos-con-r.html#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -3 </span></span>
+<span id="cb8-33"><a href="primeros-pasos-con-r.html#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="primeros-pasos-con-r.html#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="sc">-</span><span class="fl">2.3894</span>, <span class="dv">1</span>) </span>
+<span id="cb8-35"><a href="primeros-pasos-con-r.html#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.4 </span></span></code></pre></div>
+<p>Donde quizás nos llamen la atención algunas cosas: el uso del símbolo pi para referirse a la constante del mismo nombre, que existen distintas funciones para operar con el logaritmo dependiendo de su base (log -para calcular el logaritmo natural o neperiano-, log2 y log10) o que la operación seno de pi, que debería devolver un cero, en la práctica nos devuelve un valor distinto a cero, pero muy pequeño (epsilon).</p>
+<p>También es posible pasar argumentos a funciones utilizando explícitamente los nombres de dichos argumentos, en lugar de la posición. Así por ejemplo, si vemos la documentación de la función round (se presenta en la siguiente sección cómo hacer esto) observaremos que recibe dos argumentos.</p>
+<p>El primer argumento (denominado x) es el número a redondear, mientras que el segundo argumento (denominado digits) indica el número de decimales que deseamos preservar al hacer el redondeo. Sabiendo esto, podemos invocar a esta función no solo con los parámetros en orden (como en los ejemplos anteriores), sino también por ejemplo como:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="primeros-pasos-con-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="sc">-</span><span class="fl">2.3894</span>, <span class="at">digits=</span><span class="dv">1</span>) </span>
+<span id="cb9-2"><a href="primeros-pasos-con-r.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.4 </span></span>
+<span id="cb9-3"><a href="primeros-pasos-con-r.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="primeros-pasos-con-r.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="at">digits=</span><span class="dv">1</span>, <span class="at">x=</span><span class="sc">-</span><span class="fl">2.3894</span>) </span>
+<span id="cb9-5"><a href="primeros-pasos-con-r.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.4 </span></span></code></pre></div>
+</div>
+<div id="accediendo-a-la-ayuda-de-r" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Accediendo a la ayuda de R</h3>
+<p>Es posible que en algún momento queramos trabajar con alguna función y no recordemos exactamente cuál es su nombre, o no sepamos cómo utilizarla (por ejemplo, qué argumentos recibe). Para resolver este tipo de problemas podemos echar mano de la ayuda de R. En particular, dos funciones de ayuda resultan especialmente útiles:</p>
+<ul>
+<li>La <strong>función apropos</strong>, que se utiliza para encontrar nombres de funciones u otros elementos a partir de una cadena de texto que queremos buscar (para indicar que el argumento es una cadena de texto, usaremos comillas simples o dobles). Por ejemplo:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="primeros-pasos-con-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apropos</span>(<span class="st">&quot;round&quot;</span>) </span>
+<span id="cb10-2"><a href="primeros-pasos-con-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;round&quot;  &quot;round.Date&quot; &quot;round.POSIXt&quot; </span></span></code></pre></div>
+<ul>
+<li>La <strong>función help</strong> que nos permite acceder a la ayuda de R. Por ejemplo, si ejecutamos en la consola de R la expresión help(cos) (o simplemente ?cos) veremos aparecer una ventana emergente como la que se muestra en la figura a continuación:</li>
+</ul>
+<p><img src="img/fig6.jpg" /></p>
+<p>Figura 6. Ventana de ayuda de R.</p>
+<p>Además podemos acceder a la documentación de R simplemente tecleando en la consola la expresión help.start() esto debería abrir un navegador donde podremos navegar a través de la documentación en formato HTML.</p>
+</div>
+<div id="trabajando-con-variables" class="section level3" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Trabajando con variables</h3>
+<p>En algunas ocasiones, cuando estemos realizando una serie de operaciones en la consola de R, necesitaremos poder almacenar resultados intermedios para poder referirnos a ellos en operaciones futuras. Para poder hacer esto, utilizaremos variables que se definen con un nombre y un valor, de forma que podamos acceder en el futuro al valor a partir del nombre.</p>
+<p>Al decidir nuestros nombres de variables en R tenemos que tener en cuenta las reglas de nombramiento de símbolos de R:</p>
+<ul>
+<li><p>R distingue entre mayúsculas y minúsculas.</p></li>
+<li><p>Usualmente se permite utilizar toda clase de símbolos alfanuméricos (incluyendo caracteres acentuados, ñ, etc.) además del punto «.» y del guion bajo «_». Eso sí, los nombres deben empezar por «.» o por una letra y si empiezan por «.» entonces el segundo carácter no debería ser un número.</p></li>
+<li><p>El entorno no impone límites a la longitud de los nombres de los símbolos (aunque por motivos prácticos no deberíamos hacerlos demasiado largos).</p></li>
+</ul>
+<p>Para poder definir una variable y asignarle un valor, utilizaremos el operador de asignación. Aunque el signo de igualdad (=) esta soportado como operador de asignación en versiones recientes de R, lo mas habitual es emplear en las asignaciones el simbolo &lt;- (denominado gets), por ejemplo:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="primeros-pasos-con-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">2</span> </span>
+<span id="cb11-2"><a href="primeros-pasos-con-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span><span class="dv">3</span> </span>
+<span id="cb11-3"><a href="primeros-pasos-con-r.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 5 </span></span>
+<span id="cb11-4"><a href="primeros-pasos-con-r.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="primeros-pasos-con-r.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">log2</span>(x) </span>
+<span id="cb11-6"><a href="primeros-pasos-con-r.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span>
+<span id="cb11-7"><a href="primeros-pasos-con-r.html#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="primeros-pasos-con-r.html#cb11-8" aria-hidden="true" tabindex="-1"></a>x </span>
+<span id="cb11-9"><a href="primeros-pasos-con-r.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2 </span></span></code></pre></div>
+<p>Nótese que para poder obtener el valor de una variable por consola, simplemente teclearemos su nombre seguido de un fin de línea.</p>
+<p>Si en un determinado momento no recordamos qué variables hemos definido, es sencillo obtener un listado de las variables declaradas utilizando la función ls:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="primeros-pasos-con-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">2</span> </span>
+<span id="cb12-2"><a href="primeros-pasos-con-r.html#cb12-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="dv">6</span> </span>
+<span id="cb12-3"><a href="primeros-pasos-con-r.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>() </span>
+<span id="cb12-4"><a href="primeros-pasos-con-r.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;x&quot; &quot;y&quot; </span></span></code></pre></div>
+<p>También es posible borrar una variable que hemos definido previamente, simplemente utilizando la función rm:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="primeros-pasos-con-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">2</span>;y<span class="ot">&lt;-</span><span class="dv">6</span> </span>
+<span id="cb13-2"><a href="primeros-pasos-con-r.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>() </span>
+<span id="cb13-3"><a href="primeros-pasos-con-r.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;x&quot; &quot;y&quot; </span></span>
+<span id="cb13-4"><a href="primeros-pasos-con-r.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x) </span>
+<span id="cb13-5"><a href="primeros-pasos-con-r.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>() </span>
+<span id="cb13-6"><a href="primeros-pasos-con-r.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;y&quot; </span></span></code></pre></div>
+<p>En este ejemplo se puede ver también que hemos utilizado la posibilidad de combinar varias expresiones en una simple línea (a la hora de asignar valores a x e y), separándolas mediante punto y coma.</p>
+</div>
+<div id="instalación-de-paquetes" class="section level3" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Instalación de paquetes</h3>
+<p>Como comentamos con anterioridad, una de las ventajas que ofrece el entorno R es que es fácilmente extensible por medio de un mecanismo de paquetes. Actualmente existen más de 8.000 paquetes disponibles para su instalación, lo que permite que en R podamos encontrar implementaciones para casi cualquier clase de técnica de análisis de datos que se nos ocurra.</p>
+<p>Sin embargo, estos paquetes no suelen formar parte por defecto del entorno R, así que será necesario instalarlos manualmente cuando los necesitemos. Normalmente el proceso para utilizar un paquete requiere de los siguientes pasos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Buscar el paquete que implementa la funcionalidad necesaria, bien utilizando buscadores horizontales, como Google, bien con buscadores verticales como podría ser Crantastic o Rseek. También podrían ser de ayuda en este sentido portales específicos como R-Forge o Bioconductor (este último centrado en aplicaciones en el dominio de la Biología).</p></li>
+<li><p>Una vez sabemos el nombre del paquete a utilizar, lo instalaremos utilizando la función install.packages. Por ejemplo, si queremos instalar un paquete denominado digest ejecutaríamos en la consola de R la expresión:</p></li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="primeros-pasos-con-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;digest&quot;</span>, <span class="at">dependencies=</span><span class="cn">TRUE</span>) </span></code></pre></div>
+<p>Que como podemos ver indica el nombre del paquete a instalar y establece que se instalen también otros paquetes de los que pueda depender este. Como resultado de ejecutar esta expresión, aparecerá una ventana que nos permitirá seleccionar el servidor CRAN desde el que queremos hacer la instalación:</p>
+<p><img src="img/fig7.jpg" /></p>
+<p>Figura 7. Ventana de selección de servidor CRAN (Mac OS X).</p>
+<p>Una vez seleccionado el servidor, y siempre que nuestra versión de R sea compatible con la versión para que el paquete fue implementado, el sistema procederá a la descarga e instalación de todo lo necesario.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Cuando el paquete está ya instalado, tenemos que decirle al entorno que queremos que lo cargue, para poder utilizarlo. Para ello emplearemos la función library. Por ejemplo:</li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="primeros-pasos-con-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(digest) </span></code></pre></div>
+</div>
+<div id="ejecutando-expresiones-desde-un-fichero-de-texto" class="section level3" number="1.5.6">
+<h3><span class="header-section-number">1.5.6</span> Ejecutando expresiones desde un fichero de texto</h3>
+<p>Hasta ahora hemos visto cómo podemos ejecutar directamente expresiones tecleándolas una a una en la consola de R. Sin embargo, es posible también indicarle al sistema que ejecute un conjunto de expresiones que previamente hayamos escrito en un fichero de texto, al que se le suele denominar script.</p>
+<p>Esto resulta de utilidad por ejemplo cuando queremos ejecutar varias veces una secuencia larga de operaciones.</p>
+<p>Para poder cargar y ejecutar las expresiones desde fichero utilizaremos la función source. Por ejemplo, supongamos que disponemos de un fichero (denominado /Users/user1/cmds.r) que tiene el siguiente contenido:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="primeros-pasos-con-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Esto es un comentario </span></span>
+<span id="cb16-2"><a href="primeros-pasos-con-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a>z1<span class="ot">&lt;-</span>(<span class="dv">2</span><span class="sc">*</span>x)<span class="sc">+</span>y </span>
+<span id="cb16-3"><a href="primeros-pasos-con-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z1) </span>
+<span id="cb16-4"><a href="primeros-pasos-con-r.html#cb16-4" aria-hidden="true" tabindex="-1"></a>z2<span class="ot">&lt;-</span>(<span class="dv">2</span><span class="sc">*</span>y)<span class="sc">+</span>x </span>
+<span id="cb16-5"><a href="primeros-pasos-con-r.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z2) </span></code></pre></div>
+<p>Para ejecutar las expresiones contenidas en este fichero, podemos teclear la siguiente secuencia de operaciones en la consola de R:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="primeros-pasos-con-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">2</span> </span>
+<span id="cb17-2"><a href="primeros-pasos-con-r.html#cb17-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="dv">3</span> </span>
+<span id="cb17-3"><a href="primeros-pasos-con-r.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;cmds.r&quot;</span>) </span>
+<span id="cb17-4"><a href="primeros-pasos-con-r.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 7 </span></span>
+<span id="cb17-5"><a href="primeros-pasos-con-r.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 8 </span></span></code></pre></div>
+<p>A la hora de hacer nuestros ficheros con expresiones R, tenemos que tener en cuenta un par de aspectos de interés:</p>
+<ul>
+<li><p>Aunque no es obligatorio, se suele utilizar por convenio una extensión en el fichero (usualmente .R o .r) que nos indique con qué tipo de fichero estamos trabajando.</p></li>
+<li><p>Nótese que para poder hacer que nuestros resultados se muestren en consola, hemos utilizado la función print. Cuando trabajamos con la consola en modo interactivo, los resultados se imprimen directamente a la salida, sin necesidad de utilizar print. Pero cuando ejecutamos source por defecto los resultados no se imprimen, así que tenemos que hacerlo explícitamente con la llamada a esta función.</p></li>
+</ul>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="instalación-del-entorno-de-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["github", "linkedin", "weibo", "instapaper", "vk", "whatsapp"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rubend18/manual-de-r/edit/master/01-intro.Rmd",
+"text": "Edit "
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/rubend18/manual-de-r/blob/master/01-intro.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

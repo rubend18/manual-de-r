@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.3 Introducción a la minería de datos con R | Manual de R</title>
+  <meta name="description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.3 Introducción a la minería de datos con R | Manual de R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/img/cover.jpg" />
+  <meta property="og:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="github-repo" content="rubend18/manual-de-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.3 Introducción a la minería de datos con R | Manual de R" />
+  
+  <meta name="twitter:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="twitter:image" content="/img/cover.jpg" />
+
+<meta name="author" content="Rubén Darío Jaramillo (rubend18@hotmail.com)" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estadística-básica-con-r.html"/>
+<link rel="next" href="análisis-de-datos-con-r-ii.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Manual de R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path="compilación.html"><a href="compilación.html"><i class="fa fa-check"></i>Compilación</a></li>
+<li class="chapter" data-level="1" data-path="introducción-a-r.html"><a href="introducción-a-r.html"><i class="fa fa-check"></i><b>1</b> Introducción a R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="qué-es-r.html"><a href="qué-es-r.html"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es R?</a></li>
+<li class="chapter" data-level="1.2" data-path="orígenes-y-antecedentes.html"><a href="orígenes-y-antecedentes.html"><i class="fa fa-check"></i><b>1.2</b> Orígenes y antecedentes</a></li>
+<li class="chapter" data-level="1.3" data-path="por-qué-r.html"><a href="por-qué-r.html"><i class="fa fa-check"></i><b>1.3</b> ¿Por qué R?</a></li>
+<li class="chapter" data-level="1.4" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html"><i class="fa fa-check"></i><b>1.4</b> Instalación del entorno de R</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-windows-y-mac-os-x"><i class="fa fa-check"></i><b>1.4.1</b> Instalación en Windows y Mac OS X</a></li>
+<li class="chapter" data-level="1.4.2" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-linux"><i class="fa fa-check"></i><b>1.4.2</b> Instalación en Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html"><i class="fa fa-check"></i><b>1.5</b> Primeros pasos con R</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#realizando-operaciones-basicas"><i class="fa fa-check"></i><b>1.5.1</b> Realizando operaciones basicas</a></li>
+<li class="chapter" data-level="1.5.2" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#llamando-a-funciones"><i class="fa fa-check"></i><b>1.5.2</b> Llamando a funciones</a></li>
+<li class="chapter" data-level="1.5.3" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#accediendo-a-la-ayuda-de-r"><i class="fa fa-check"></i><b>1.5.3</b> Accediendo a la ayuda de R</a></li>
+<li class="chapter" data-level="1.5.4" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#trabajando-con-variables"><i class="fa fa-check"></i><b>1.5.4</b> Trabajando con variables</a></li>
+<li class="chapter" data-level="1.5.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.5.5</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.5.6" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#ejecutando-expresiones-desde-un-fichero-de-texto"><i class="fa fa-check"></i><b>1.5.6</b> Ejecutando expresiones desde un fichero de texto</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><i class="fa fa-check"></i><b>1.6</b> Consejos prácticos sobre el uso de la consola de R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="el-lenguaje-r.html"><a href="el-lenguaje-r.html"><i class="fa fa-check"></i><b>2</b> El lenguaje R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="características-básicas-del-lenguaje-r.html"><a href="características-básicas-del-lenguaje-r.html"><i class="fa fa-check"></i><b>2.1</b> Características básicas del lenguaje R</a></li>
+<li class="chapter" data-level="2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html"><i class="fa fa-check"></i><b>2.2</b> Tipos de datos y operadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#tipos-básicos-de-datos"><i class="fa fa-check"></i><b>2.2.1</b> Tipos básicos de datos</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#operadores"><i class="fa fa-check"></i><b>2.2.2</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html"><i class="fa fa-check"></i><b>2.3</b> Estructura de datos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#vectores"><i class="fa fa-check"></i><b>2.3.1</b> Vectores</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#matrices-y-arrays"><i class="fa fa-check"></i><b>2.3.2</b> Matrices y arrays</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#listas"><i class="fa fa-check"></i><b>2.3.3</b> Listas</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#factores-factors"><i class="fa fa-check"></i><b>2.3.4</b> Factores (factors)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#tablas-data-frames"><i class="fa fa-check"></i><b>2.3.5</b> Tablas (data frames)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html"><i class="fa fa-check"></i><b>2.4</b> Estructuras de control</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#condicionales"><i class="fa fa-check"></i><b>2.4.1</b> Condicionales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#bucles"><i class="fa fa-check"></i><b>2.4.2</b> Bucles</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="funciones.html"><a href="funciones.html"><i class="fa fa-check"></i><b>2.5</b> Funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-datos-con-r-i.html"><a href="análisis-de-datos-con-r-i.html"><i class="fa fa-check"></i><b>3</b> Análisis de datos con R (I)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Manipulación de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#tratamiento-de-valores-desconocidos"><i class="fa fa-check"></i><b>3.1.1</b> Tratamiento de valores desconocidos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#conversión-de-tipos"><i class="fa fa-check"></i><b>3.1.2</b> Conversión de tipos</a></li>
+<li class="chapter" data-level="3.1.3" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#ordenación-de-datos"><i class="fa fa-check"></i><b>3.1.3</b> Ordenación de datos</a></li>
+<li class="chapter" data-level="3.1.4" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#búsqueda-de-datos"><i class="fa fa-check"></i><b>3.1.4</b> Búsqueda de datos</a></li>
+<li class="chapter" data-level="3.1.5" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#manipulación-de-cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.1.5</b> Manipulación de cadenas de caracteres</a></li>
+<li class="chapter" data-level="3.1.6" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#importarexportar-datos-desdea-fichero"><i class="fa fa-check"></i><b>3.1.6</b> Importar/exportar datos desde/a fichero</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html"><i class="fa fa-check"></i><b>3.2</b> Estadística básica con R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#distribuciones-estadísticas"><i class="fa fa-check"></i><b>3.2.1</b> Distribuciones estadísticas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2.2</b> Estadística descriptiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#test-estadísticos-básicos"><i class="fa fa-check"></i><b>3.2.3</b> Test estadísticos básicos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html"><i class="fa fa-check"></i><b>3.3</b> Introducción a la minería de datos con R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#análisis-de-correlación"><i class="fa fa-check"></i><b>3.3.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#regresión"><i class="fa fa-check"></i><b>3.3.2</b> Regresión</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#clasificación"><i class="fa fa-check"></i><b>3.3.3</b> Clasificación</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#agrupamiento-clustering"><i class="fa fa-check"></i><b>3.3.4</b> Agrupamiento (clustering)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-datos-con-r-ii.html"><a href="análisis-de-datos-con-r-ii.html"><i class="fa fa-check"></i><b>4</b> Análisis de datos con R (II)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html"><i class="fa fa-check"></i><b>4.1</b> Minería de texto</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html#introducción"><i class="fa fa-check"></i><b>4.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1.2" data-path="minería-de-texto.html"><a href="minería-de-texto.html#minería-de-texto-con-tm"><i class="fa fa-check"></i><b>4.1.2</b> Minería de texto con tm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="minería-de-texto.html"><a href="minería-de-texto.html#encontrar-términos-frecuentes"><i class="fa fa-check"></i><b>4.1.3</b> Encontrar términos frecuentes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="minería-de-texto.html"><a href="minería-de-texto.html#clasificación-1"><i class="fa fa-check"></i><b>4.1.4</b> Clasificación</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html"><i class="fa fa-check"></i><b>4.2</b> Análisis de grafos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#primeros-pasos-con-igraph"><i class="fa fa-check"></i><b>4.2.2</b> Primeros pasos con igraph</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#importandoexportando-grafos-desdea-fichero"><i class="fa fa-check"></i><b>4.2.3</b> Importando/exportando grafos desde/a fichero</a></li>
+<li class="chapter" data-level="4.2.4" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#análisis-de-grafos-con-igraph"><i class="fa fa-check"></i><b>4.2.4</b> Análisis de grafos con igraph</a></li>
+<li class="chapter" data-level="4.2.5" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#información-básica-de-grafos"><i class="fa fa-check"></i><b>4.2.5</b> Información básica de grafos</a></li>
+<li class="chapter" data-level="4.2.6" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#medidas-de-centralidad"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de centralidad</a></li>
+<li class="chapter" data-level="4.2.7" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#camino-más-corto"><i class="fa fa-check"></i><b>4.2.7</b> Camino más corto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="gráficos-y-visualización-de-datos.html"><a href="gráficos-y-visualización-de-datos.html"><i class="fa fa-check"></i><b>5</b> Gráficos y visualización de datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creando-gráficos-básicos-con-r.html"><a href="creando-gráficos-básicos-con-r.html"><i class="fa fa-check"></i><b>5.1</b> Creando gráficos básicos con R</a></li>
+<li class="chapter" data-level="5.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html"><i class="fa fa-check"></i><b>5.2</b> Personalización de gráficos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#símbolos-y-líneas"><i class="fa fa-check"></i><b>5.2.1</b> Símbolos y líneas</a></li>
+<li class="chapter" data-level="5.2.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#colores"><i class="fa fa-check"></i><b>5.2.2</b> Colores</a></li>
+<li class="chapter" data-level="5.2.3" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#límites-de-los-ejes"><i class="fa fa-check"></i><b>5.2.3</b> Límites de los ejes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#leyendas-y-texto"><i class="fa fa-check"></i><b>5.2.4</b> Leyendas y texto</a></li>
+<li class="chapter" data-level="5.2.5" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#añadiendo-una-rejilla"><i class="fa fa-check"></i><b>5.2.5</b> Añadiendo una rejilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="combinando-gráficos.html"><a href="combinando-gráficos.html"><i class="fa fa-check"></i><b>5.3</b> Combinando gráficos</a></li>
+<li class="chapter" data-level="5.4" data-path="exportando-gráficos-a-fichero.html"><a href="exportando-gráficos-a-fichero.html"><i class="fa fa-check"></i><b>5.4</b> Exportando gráficos a fichero</a></li>
+<li class="chapter" data-level="5.5" data-path="interacción-básica-con-gráficos.html"><a href="interacción-básica-con-gráficos.html"><i class="fa fa-check"></i><b>5.5</b> Interacción básica con gráficos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="información-extra.html"><a href="información-extra.html"><i class="fa fa-check"></i>Información extra</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Manual de R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introducción-a-la-minería-de-datos-con-r" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Introducción a la minería de datos con R</h2>
+<p>La minería de datos tiene como objetivo tratar de descubrir patrones ocultos en conjuntos de datos. En las siguientes secciones veremos cómo se pueden realizar con R algunas tareas que se suelen llevar a cabo como parte del proceso de minería de datos.</p>
+<div id="análisis-de-correlación" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Análisis de correlación</h3>
+<p>A través del análisis de correlación podemos determinar si existe (alta correlación) o no (baja correlación) una relación lineal entre variables y en qué sentido se produce (correlación positiva o negativa).</p>
+<p>Para determinar si existe correlación entre dos variables utilizaremos la función cor.test de R, que calcula la correlación y un p-valor para estimar si esta es o no significativa (con un nivel de confianza del 95 % se considera que si p&lt;0.05 la correlación es significativa, puesto que se rechazaría la hipótesis nula de que la correlación es cero).</p>
+<p>Por ejemplo, supongamos que disponemos del siguiente data frame que muestra en dos columnas la relación entre la temperatura medida en una determinada ciudad y las ventas (en euros) en un puesto de refrescos.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a>tabla </span>
+<span id="cb106-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    temp ventas </span></span>
+<span id="cb106-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  22.3  40.61 </span></span>
+<span id="cb106-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  34.1  61.28 </span></span>
+<span id="cb106-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  25.8  48.01 </span></span>
+<span id="cb106-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4   9.6  18.42 </span></span>
+<span id="cb106-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5  17.8  31.38 </span></span>
+<span id="cb106-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 6  21.2  37.82 </span></span>
+<span id="cb106-9"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 7  19.9  35.79 </span></span>
+<span id="cb106-10"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 8  32.7  59.52 </span></span>
+<span id="cb106-11"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 9  27.6  50.12 </span></span>
+<span id="cb106-12"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 24.4  44.95 </span></span>
+<span id="cb106-13"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-14"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(tabla<span class="sc">$</span>temp, tabla<span class="sc">$</span>ventas) </span>
+<span id="cb106-15"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb106-16"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   Pearson&#39;s product-moment correlation </span></span>
+<span id="cb106-17"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb106-18"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="co"># data:  tabla$temp and tabla$ventas </span></span>
+<span id="cb106-19"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="co"># t = 51.7933, df = 8, p-value = 2.14e-11 </span></span>
+<span id="cb106-20"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-20" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative hypothesis: true correlation is not equal to 0 </span></span>
+<span id="cb106-21"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 95 percent confidence interval: </span></span>
+<span id="cb106-22"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-22" aria-hidden="true" tabindex="-1"></a><span class="co">#  0.9934703 0.9996617 </span></span>
+<span id="cb106-23"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-23" aria-hidden="true" tabindex="-1"></a><span class="co"># sample estimates: </span></span>
+<span id="cb106-24"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-24" aria-hidden="true" tabindex="-1"></a><span class="co">#       cor  </span></span>
+<span id="cb106-25"><a href="introducción-a-la-minería-de-datos-con-r.html#cb106-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.9985122 </span></span></code></pre></div>
+<p>Se puede ver que existe una alta correlación entre las variables (cor=0.99851) y además es positiva (cuando crece la temperatura esperaríamos que creciesen también las ventas). También podemos observar que el p-valor es muy pequeño, con lo que la correlación sería en este caso significativa.</p>
+</div>
+<div id="regresión" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Regresión</h3>
+<p>El objetivo del análisis de regresión es el de encontrar una función que permita predecir los valores de una variable dependiente en base a los de una o varias variables independientes. Existen distintos tipos de análisis de regresión, dependiendo del tipo de función que queramos emplear, aunque en este tema nos centraremos en el caso en el que la función es una recta (regresión lineal), dado que es el más habitualmente empleado.</p>
+<p>Para calcular la recta de regresión a partir de unos datos utilizaremos la función lm de R. El principal argumento de esta función es una fórmula con la estructura:</p>
+<pre class="vd"><code></code></pre>
+<p>Donde VD representa la variable dependiente y VI las distintas variables independientes. Veamos un ejemplo: se trata de determinar si el número de veces que un grillo canta en una determinada unidad de tiempo (por ejemplo, minutos) guarda relación con la temperatura ambiente. Tras realizar una serie de medidas se ha llegado a los siguientes datos:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">88.6</span>, <span class="fl">71.6</span>, <span class="fl">93.3</span>, <span class="fl">84.3</span>, <span class="fl">80.6</span>, <span class="fl">75.2</span>, <span class="fl">69.7</span>, <span class="fl">82.0</span>,</span>
+<span id="cb108-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-2" aria-hidden="true" tabindex="-1"></a>          <span class="fl">69.4</span>, <span class="fl">83.3</span>, <span class="fl">79.6</span>, <span class="fl">82.6</span>, <span class="fl">80.6</span>, <span class="fl">83.5</span>, <span class="fl">76.3</span>)</span>
+<span id="cb108-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-3" aria-hidden="true" tabindex="-1"></a>sonido <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.0</span>, <span class="fl">16.0</span>, <span class="fl">19.8</span>, <span class="fl">18.4</span>, <span class="fl">17.1</span>, <span class="fl">15.5</span>, <span class="fl">14.7</span>, <span class="fl">17.1</span>,</span>
+<span id="cb108-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-4" aria-hidden="true" tabindex="-1"></a>            <span class="fl">15.4</span>, <span class="fl">16.2</span>, <span class="fl">15.0</span>, <span class="fl">17.2</span>, <span class="fl">16.0</span>, <span class="fl">17.0</span>, <span class="fl">14.4</span>)</span>
+<span id="cb108-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-5" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(temp, sonido)</span>
+<span id="cb108-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-7" aria-hidden="true" tabindex="-1"></a>tabla </span>
+<span id="cb108-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="co"># temp sonido </span></span>
+<span id="cb108-9"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  88.6   20.0 </span></span>
+<span id="cb108-10"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  71.6   16.0 </span></span>
+<span id="cb108-11"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  93.3   19.8 </span></span>
+<span id="cb108-12"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4  84.3   18.4 </span></span>
+<span id="cb108-13"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 5  80.6   17.1 </span></span>
+<span id="cb108-14"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 6  75.2   15.5 </span></span>
+<span id="cb108-15"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 7  69.7   14.7 </span></span>
+<span id="cb108-16"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 8  82.0   17.1 </span></span>
+<span id="cb108-17"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 9  69.4   15.4 </span></span>
+<span id="cb108-18"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 83.3   16.2 </span></span>
+<span id="cb108-19"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 11 79.6   15.0 </span></span>
+<span id="cb108-20"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 12 82.6   17.2 </span></span>
+<span id="cb108-21"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 13 80.6   16.0 </span></span>
+<span id="cb108-22"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 14 83.5   17.0 </span></span>
+<span id="cb108-23"><a href="introducción-a-la-minería-de-datos-con-r.html#cb108-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 15 76.3   14.4 </span></span></code></pre></div>
+<p>Donde temp representa la temperatura en grados Fahrenheit y sonido el número de cantos por minuto. Podemos intentar ajustar un modelo lineal entre ambas variables haciendo:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-1" aria-hidden="true" tabindex="-1"></a>fit<span class="ot">&lt;-</span><span class="fu">lm</span>(sonido<span class="sc">~</span>temp, <span class="at">data=</span>tabla) </span>
+<span id="cb109-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-2" aria-hidden="true" tabindex="-1"></a>fit </span>
+<span id="cb109-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Call: </span></span>
+<span id="cb109-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lm(formula = sonido ~ temp, data=tabla) </span></span>
+<span id="cb109-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb109-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients: </span></span>
+<span id="cb109-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (Intercept)         temp   </span></span>
+<span id="cb109-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb109-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     -0.3091       0.2119   </span></span></code></pre></div>
+<p>Donde, como se puede ver, se sugiere que la ecuación de la recta estimada es:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb110-1" aria-hidden="true" tabindex="-1"></a>sonido <span class="ot">=</span> <span class="fl">0.2119</span><span class="sc">*</span>temp – <span class="fl">0.3091</span></span></code></pre></div>
+<p>Aunque hemos determinado la ecuación, no sabemos si el ajuste realizado es bueno o no. Para ello, podemos utilizar la función summary que nos ofrece más información sobre el ajuste:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb111-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Call: </span></span>
+<span id="cb111-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="co"># lm(formula = sonido ~ temp, data = tabla) </span></span>
+<span id="cb111-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb111-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals: </span></span>
+<span id="cb111-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="co">#      Min       1Q   Median       3Q      Max  </span></span>
+<span id="cb111-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="co"># -1.56009 -0.57930  0.03129  0.59020  1.53259  </span></span>
+<span id="cb111-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb111-9"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients: </span></span>
+<span id="cb111-10"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="co">#             Estimate Std. Error t value Pr(&gt;|t|)     </span></span>
+<span id="cb111-11"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (Intercept) -0.30914    3.10858  -0.099 0.922299     </span></span>
+<span id="cb111-12"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-12" aria-hidden="true" tabindex="-1"></a><span class="co"># temp         0.21193    0.03871   5.475 0.000107 *** </span></span>
+<span id="cb111-13"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- </span></span>
+<span id="cb111-14"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 </span></span>
+<span id="cb111-15"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb111-16"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual standard error: 0.9715 on 13 degrees of freedom </span></span>
+<span id="cb111-17"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared:  0.6975,  Adjusted R-squared:  0.6742  </span></span>
+<span id="cb111-18"><a href="introducción-a-la-minería-de-datos-con-r.html#cb111-18" aria-hidden="true" tabindex="-1"></a><span class="co"># F-statistic: 29.97 on 1 and 13 DF,  p-value: 0.0001067 </span></span></code></pre></div>
+<p>Para interpretar estos resultados debemos fijarnos en varios aspectos:</p>
+<ul>
+<li><p>En Residuals se nos ofrece información sobre los residuos del ajuste. Estos residuos deberían seguir una distribución normal de media cero, así que la mediana de los residuos debería estar cerca de cero (aquí 0.03129) y el valor absoluto del mínimo y el máximo debería ser similar (ambos cerca de 1.5).</p></li>
+<li><p>Se nos indica también si los coeficientes estimados en el análisis son o no significativos por medio de un p-valor (última columna de la tabla Coefficients). Así se puede ver que el coeficiente estimado para tabla$temp (0.21193) sí lo es (p-valor muy pequeño), mientras que la estimación del punto de interceptación (-0.30914) tiene un p-valor alto (0.922299) con lo que no se puede considerar significativo.</p></li>
+<li><p>Los valores de R-squared sirven como medida de la bondad del ajuste. Para que el ajuste sea bueno, estos valores deberían estar próximos a 1.</p></li>
+</ul>
+<p>Por último, puede ser interesante en ocasiones hacernos una idea de la bondad del ajuste mediante la representación gráfica de los datos y la recta de regresión.</p>
+<p>Mediante la función abline podemos dibujar la recta de regresión, mientras que utilizaremos la función plot para representar los datos de la tabla:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">88.6</span>, <span class="fl">71.6</span>, <span class="fl">93.3</span>, <span class="fl">84.3</span>, <span class="fl">80.6</span>, <span class="fl">75.2</span>, <span class="fl">69.7</span>, <span class="fl">82.0</span>,</span>
+<span id="cb112-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a>          <span class="fl">69.4</span>, <span class="fl">83.3</span>, <span class="fl">79.6</span>, <span class="fl">82.6</span>, <span class="fl">80.6</span>, <span class="fl">83.5</span>, <span class="fl">76.3</span>)</span>
+<span id="cb112-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-3" aria-hidden="true" tabindex="-1"></a>sonido <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.0</span>, <span class="fl">16.0</span>, <span class="fl">19.8</span>, <span class="fl">18.4</span>, <span class="fl">17.1</span>, <span class="fl">15.5</span>, <span class="fl">14.7</span>, <span class="fl">17.1</span>,</span>
+<span id="cb112-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-4" aria-hidden="true" tabindex="-1"></a>            <span class="fl">15.4</span>, <span class="fl">16.2</span>, <span class="fl">15.0</span>, <span class="fl">17.2</span>, <span class="fl">16.0</span>, <span class="fl">17.0</span>, <span class="fl">14.4</span>)</span>
+<span id="cb112-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-5" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(temp, sonido)</span>
+<span id="cb112-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-6" aria-hidden="true" tabindex="-1"></a>fit<span class="ot">&lt;-</span><span class="fu">lm</span>(sonido<span class="sc">~</span>temp, <span class="at">data=</span>tabla) </span>
+<span id="cb112-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tabla<span class="sc">$</span>temp, tabla<span class="sc">$</span>sonido) </span>
+<span id="cb112-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-106"></span>
+<img src="my-book_files/figure-html/unnamed-chunk-106-1.svg" alt="Representación gráfica del ajuste lineal de unos datos." width="672" />
+<p class="caption">
+Figura 3.4: Representación gráfica del ajuste lineal de unos datos.
+</p>
+</div>
+</div>
+<div id="clasificación" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Clasificación</h3>
+<p>La tarea de clasificación tiene como objetivo organizar una serie de datos en un conjunto de categorías predefinidas. En la práctica existen multitud de alternativas en lo que a algoritmos de clasificación se refiere, muchas de las cuales están implementadas en R a través de distintos paquetes.</p>
+<p>En esta sección haremos uso del paquete e1071, desarrollado por el Departamento de Estadística de la Universidad Tecnológica de Viena y que incluye la implementación de algunos mecanismos de clasificación de datos, tales como el algoritmo de Bayes ingenuo (Naive Bayes) o las máquinas de vectores soporte (Support Vector Machines, SVM).</p>
+<p>Para ello, instalaremos el paquete en nuestro sistema ejecutando en la consola de R:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;e1071&quot;</span>, <span class="at">dependencies=</span>T) </span>
+<span id="cb113-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span></code></pre></div>
+<p>Para mostrar el uso de estas técnicas de clasificación necesitamos un conjunto de datos con el que hacer pruebas. En nuestro caso utilizaremos el denominado Iris Flower Dataset, un conjunto de datos sencillo que se suele emplear como ejemplo en tareas de clasificación. Tan frecuente es su uso que, de hecho, R incluye una copia de este conjunto de datos que podemos cargar ejecutando en el terminal el comando:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris) </span></code></pre></div>
+<p>Lo que creará una variable de tipo data frame y nombre iris en el entorno. Podemos ver las primeras entradas de la tabla ejecutando el comando:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris) </span>
+<span id="cb115-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></span>
+<span id="cb115-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1          5.1         3.5          1.4         0.2  setosa </span></span>
+<span id="cb115-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2          4.9         3.0          1.4         0.2  setosa </span></span>
+<span id="cb115-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3          4.7         3.2          1.3         0.2  setosa </span></span>
+<span id="cb115-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4          4.6         3.1          1.5         0.2  setosa </span></span>
+<span id="cb115-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5          5.0         3.6          1.4         0.2  setosa </span></span>
+<span id="cb115-8"><a href="introducción-a-la-minería-de-datos-con-r.html#cb115-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 6          5.4         3.9          1.7         0.4  setosa </span></span></code></pre></div>
+<p>Los datos de Iris se obtuvieron midiendo cuatro características (longitud y ancho del sépalo, longitud y ancho del pétalo, todos ellos expresados en centímetros) de una serie de especies vegetales (Iris setosa, Iris virgínica, Iris versicolor). Para cada una de las especies la tabla ofrece 50 muestras (filas en el data frame).</p>
+<p>Las técnicas de clasificación son técnicas supervisadas, en las que es necesario entrenar un clasificador para, posteriormente, utilizarlo a la hora de predecir la clase a la que pertenece una o varias muestras nuevas (no incluidas en el conjunto de entrenamiento).</p>
+<p>En nuestro caso, dividiremos el conjunto Iris en dos partes: una la usaremos para entrenar el clasificador (120 muestras, 40 de cada clase) y la otra para evaluarlo (30 muestras, 10 de cada clase):</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-1" aria-hidden="true" tabindex="-1"></a>train<span class="ot">&lt;-</span>iris[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">51</span><span class="sc">:</span><span class="dv">90</span>,<span class="dv">101</span><span class="sc">:</span><span class="dv">140</span>),] </span>
+<span id="cb116-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-2" aria-hidden="true" tabindex="-1"></a>eval<span class="ot">&lt;-</span>iris[<span class="fu">c</span>(<span class="dv">41</span><span class="sc">:</span><span class="dv">50</span>,<span class="dv">91</span><span class="sc">:</span><span class="dv">100</span>,<span class="dv">141</span><span class="sc">:</span><span class="dv">150</span>),] </span>
+<span id="cb116-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train) </span>
+<span id="cb116-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 120   5 </span></span>
+<span id="cb116-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(eval) </span>
+<span id="cb116-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb116-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 30  5 </span></span></code></pre></div>
+<p>A continuación, entrenaremos el clasificador utilizando el conjunto de entrenamiento:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a>nbClass <span class="ot">&lt;-</span> <span class="fu">naiveBayes</span>(</span>
+<span id="cb117-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  Species <span class="sc">~</span> Sepal.Length<span class="sc">+</span>Sepal.Width</span>
+<span id="cb117-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span>Petal.Length<span class="sc">+</span>Petal.Width, <span class="at">data =</span> train) </span></code></pre></div>
+<p>Donde estamos utilizando la función naiveBayes para entrenar un clasificador bayesiano ingenuo. El primer argumento representa una fórmula que indica que queremos predecir la clase indicada por Species utilizando como variables independientes el resto de columnas del data frame (esto se podría haber abreviado por un simple punto, con lo que podríamos escribir directamente Species ~ .). El segundo argumento indica de dónde sacamos los datos.</p>
+<p>Una vez entrenado el clasificador podemos utilizarlo para predecir la clase de cada una de las muestras del conjunto de evaluación mediante la función predict:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb118-1" aria-hidden="true" tabindex="-1"></a>predicted<span class="ot">&lt;-</span><span class="fu">predict</span>(nbClass, eval[,<span class="sc">-</span><span class="dv">5</span>]) </span></code></pre></div>
+<p>Podemos obtener la matriz de confusión del clasificador utilizando la función table:</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a>matrizconf<span class="ot">&lt;-</span><span class="fu">table</span>(predicted, eval<span class="sc">$</span>Species) </span>
+<span id="cb119-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-2" aria-hidden="true" tabindex="-1"></a>matrizconf             </span>
+<span id="cb119-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted    setosa versicolor virginica </span></span>
+<span id="cb119-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   setosa          10          0             0 </span></span>
+<span id="cb119-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   versicolor      0          10             0 </span></span>
+<span id="cb119-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   virginica       0           0            10 </span></span></code></pre></div>
+<p>Y podemos obtener su tasa de aciertos haciendo:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(matrizconf))<span class="sc">/</span><span class="fu">sum</span>(matrizconf) </span>
+<span id="cb120-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 </span></span></code></pre></div>
+<p>Con lo que vemos que en este caso el clasificador ha acertado en todas las predicciones. Un proceso similar se seguiría para utilizar el clasificador SVM, aunque en este caso la función para entrenar el clasificador sería la función svm.</p>
+<p>En el ejemplo anterior del clasificador bayesiano ingenuo, hemos dividido los datos en entrenamiento y evaluación a mano, utilizando el operador de selección [] con los índices de los elementos que queremos añadir en cada grupo. Sin embargo, podríamos haber hecho la división de manera aleatoria utilizando las funciones:</p>
+<ul>
+<li><p><strong>sample</strong>: permite extraer una muestra aleatoria de tamaño dado de un vector de elementos.</p></li>
+<li><p><strong>split</strong>: permite dividir un conjunto de elementos en grupos, definidos mediante una variable categórica (factor).</p></li>
+<li><p><strong>unsplit</strong>: realiza el proceso contrario a split, uniendo una serie de grupos en un único conjunto de elementos.</p></li>
+</ul>
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a>datasets<span class="ot">&lt;-</span><span class="fu">split</span>(iris, iris<span class="sc">$</span>Species) </span>
+<span id="cb121-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-2" aria-hidden="true" tabindex="-1"></a>etiquetados<span class="ot">&lt;-</span><span class="fu">lapply</span>(</span>
+<span id="cb121-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  datasets, <span class="cf">function</span>(x) {s<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="dv">10</span>);</span>
+<span id="cb121-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  x[s,<span class="st">&quot;t&quot;</span>]<span class="ot">&lt;-</span><span class="st">&quot;eval&quot;</span>; x[<span class="sc">-</span>s,<span class="st">&quot;t&quot;</span>]<span class="ot">&lt;-</span><span class="st">&quot;train&quot;</span>; <span class="fu">return</span>(x)}) </span>
+<span id="cb121-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-5" aria-hidden="true" tabindex="-1"></a>dataset<span class="ot">&lt;-</span><span class="fu">unsplit</span>(etiquetados, iris<span class="sc">$</span>Species) </span>
+<span id="cb121-6"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-6" aria-hidden="true" tabindex="-1"></a>train<span class="ot">&lt;-</span>dataset[dataset<span class="sc">$</span>t<span class="sc">==</span><span class="st">&quot;train&quot;</span>,<span class="sc">-</span><span class="dv">6</span>] </span>
+<span id="cb121-7"><a href="introducción-a-la-minería-de-datos-con-r.html#cb121-7" aria-hidden="true" tabindex="-1"></a>eval<span class="ot">&lt;-</span>dataset[dataset<span class="sc">$</span>t<span class="sc">==</span><span class="st">&quot;eval&quot;</span>,<span class="sc">-</span><span class="dv">6</span>] </span></code></pre></div>
+<p>El primer comando utiliza la función split para dividir el data frame iris en base al valor de la columna Species. El data frame original se divide así en tres partes, una por cada especie (Setosa, Virgínica, Versicolor), obteniendo como resultado una lista con tres data frames. A cada uno de los elementos de esa lista se le aplica (con lapply) una función que selecciona aleatoriamente 10 entradas (con sample).</p>
+<p>Las entradas seleccionadas se etiquetan añadiendo una nueva columna ‘t’ con valor ‘eval’ mientras que el resto de entradas se marcan con el valor ‘train’ en esa columna ‘t.’ El siguiente comando usa unsplit para juntar los tres data frames ya etiquetados en uno solo. A continuación, los dos siguientes comandos utilizan el valor de la columna ‘t’ para seleccionar las filas que constituirán el conjunto de entrenamiento y el de evaluación, eliminando al mismo tiempo esa misma columna ‘t’ (la última, en la posición 6).</p>
+</div>
+<div id="agrupamiento-clustering" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Agrupamiento (clustering)</h3>
+<p>La tarea de agrupamiento tiene como objetivo organizar una serie de datos en grupos de forma que los más similares (de acuerdo a una métrica determinada) acaben en el mismo grupo. Al igual que ocurría con los algoritmos de clasificación, también existen múltiples algoritmos que podemos utilizar para agrupar unos datos. En esta sección veremos cómo utilizar uno de los más populares, el algoritmo k-means.</p>
+<p>En R el algoritmo k-means se implementa por medio de la función kmeans. Los dos parámetros principales de esta función son:</p>
+<ul>
+<li><p><strong>x</strong>: Son los datos que queremos procesar (debe ser una matriz numérica)</p></li>
+<li><p><strong>centers</strong>: En el que indicaremos el número de grupos en los que queremos repartir los datos.</p></li>
+</ul>
+<p>Tomemos por ejemplo los datos de Iris, y asumamos que no conocemos la clase a la que pertenece cada muestra (lo que podemos hacer eliminando la última columna):</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb122-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span>iris[,<span class="sc">-</span><span class="dv">5</span>] </span></code></pre></div>
+<p>Podemos llevar a cabo un análisis de agrupamiento de estos datos utilizando la siguiente secuencia de comandos de R:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb123-1" aria-hidden="true" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(datos) </span>
+<span id="cb123-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb123-2" aria-hidden="true" tabindex="-1"></a>norm_m<span class="ot">&lt;-</span><span class="fu">scale</span>(m) </span>
+<span id="cb123-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb123-3" aria-hidden="true" tabindex="-1"></a>fit<span class="ot">&lt;-</span><span class="fu">kmeans</span>(norm_m, <span class="dv">3</span>) </span></code></pre></div>
+<p>En donde se puede ver que primero convertimos el data frame en una matriz con la llamada a la función as.matrix, a continuación escalamos la matriz (función scale), de forma que se trate de manera homogénea a las distintas variables (haciendo que tengan misma media y desviación típica) y, por último, realizamos el agrupamiento, indicando que queremos tres grupos. Podemos a continuación acceder a los resultados del agrupamiento a través de la variable fit:</p>
+<ul>
+<li><p><strong>fit$centers</strong>: Nos proporciona los centros de los agrupamientos.</p></li>
+<li><p><strong>fit$cluster</strong>: Indica el grupo en el que se ha asignado cada muestra.</p></li>
+</ul>
+<p>Un parámetro de calidad del agrupamiento generado mediante el algoritmo de K-means se puede calcular mediante la expresión:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb124-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>betweenss<span class="sc">/</span>fit<span class="sc">$</span>totss </span>
+<span id="cb124-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.7669658 </span></span></code></pre></div>
+<p>Que se podría interpretar como que aproximadamente un 77 % de la varianza de los datos queda explicada al hacer el agrupamiento. En general, cuanto mayor es este valor, mejor el agrupamiento, pero hay que tener en cuenta que el valor aumenta a medida que aumentamos el número de grupos, con lo que interesa encontrar un compromiso entre el parámetro de calidad y el número de grupos (y de hecho, esto se utiliza como un mecanismo para intentar estimar el número de grupos, a través del denominado «método del codo» ─Elbow Method─).</p>
+<p>Además del parámetro de calidad, en nuestro caso podemos comparar las asignaciones a grupos con las clases iniciales que venían asignadas en Iris:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="introducción-a-la-minería-de-datos-con-r.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fit<span class="sc">$</span>cluster, iris[,<span class="dv">5</span>])    </span>
+<span id="cb125-2"><a href="introducción-a-la-minería-de-datos-con-r.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   setosa versicolor virginica </span></span>
+<span id="cb125-3"><a href="introducción-a-la-minería-de-datos-con-r.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1      0         11        36 </span></span>
+<span id="cb125-4"><a href="introducción-a-la-minería-de-datos-con-r.html#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2      0         39        14 </span></span>
+<span id="cb125-5"><a href="introducción-a-la-minería-de-datos-con-r.html#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3     50          0         0 </span></span></code></pre></div>
+<p>De donde podríamos deducir que el grupo 1 corresponde a la especie «virginica», el 2 a «versicolor» y el 3 a «setosa» y que el mecanismo se equivocaría en la asignación de 11+14=25 casos sobre un total de 150.</p>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estadística-básica-con-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-de-datos-con-r-ii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["github", "linkedin", "weibo", "instapaper", "vk", "whatsapp"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rubend18/manual-de-r/edit/master/03-analisis1.Rmd",
+"text": "Edit "
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/rubend18/manual-de-r/blob/master/03-analisis1.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

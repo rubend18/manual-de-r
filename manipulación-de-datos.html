@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Manipulación de datos | Manual de R</title>
+  <meta name="description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Manipulación de datos | Manual de R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/img/cover.jpg" />
+  <meta property="og:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="github-repo" content="rubend18/manual-de-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Manipulación de datos | Manual de R" />
+  
+  <meta name="twitter:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="twitter:image" content="/img/cover.jpg" />
+
+<meta name="author" content="Rubén Darío Jaramillo (rubend18@hotmail.com)" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-de-datos-con-r-i.html"/>
+<link rel="next" href="estadística-básica-con-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Manual de R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path="compilación.html"><a href="compilación.html"><i class="fa fa-check"></i>Compilación</a></li>
+<li class="chapter" data-level="1" data-path="introducción-a-r.html"><a href="introducción-a-r.html"><i class="fa fa-check"></i><b>1</b> Introducción a R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="qué-es-r.html"><a href="qué-es-r.html"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es R?</a></li>
+<li class="chapter" data-level="1.2" data-path="orígenes-y-antecedentes.html"><a href="orígenes-y-antecedentes.html"><i class="fa fa-check"></i><b>1.2</b> Orígenes y antecedentes</a></li>
+<li class="chapter" data-level="1.3" data-path="por-qué-r.html"><a href="por-qué-r.html"><i class="fa fa-check"></i><b>1.3</b> ¿Por qué R?</a></li>
+<li class="chapter" data-level="1.4" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html"><i class="fa fa-check"></i><b>1.4</b> Instalación del entorno de R</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-windows-y-mac-os-x"><i class="fa fa-check"></i><b>1.4.1</b> Instalación en Windows y Mac OS X</a></li>
+<li class="chapter" data-level="1.4.2" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-linux"><i class="fa fa-check"></i><b>1.4.2</b> Instalación en Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html"><i class="fa fa-check"></i><b>1.5</b> Primeros pasos con R</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#realizando-operaciones-basicas"><i class="fa fa-check"></i><b>1.5.1</b> Realizando operaciones basicas</a></li>
+<li class="chapter" data-level="1.5.2" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#llamando-a-funciones"><i class="fa fa-check"></i><b>1.5.2</b> Llamando a funciones</a></li>
+<li class="chapter" data-level="1.5.3" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#accediendo-a-la-ayuda-de-r"><i class="fa fa-check"></i><b>1.5.3</b> Accediendo a la ayuda de R</a></li>
+<li class="chapter" data-level="1.5.4" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#trabajando-con-variables"><i class="fa fa-check"></i><b>1.5.4</b> Trabajando con variables</a></li>
+<li class="chapter" data-level="1.5.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.5.5</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.5.6" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#ejecutando-expresiones-desde-un-fichero-de-texto"><i class="fa fa-check"></i><b>1.5.6</b> Ejecutando expresiones desde un fichero de texto</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><i class="fa fa-check"></i><b>1.6</b> Consejos prácticos sobre el uso de la consola de R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="el-lenguaje-r.html"><a href="el-lenguaje-r.html"><i class="fa fa-check"></i><b>2</b> El lenguaje R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="características-básicas-del-lenguaje-r.html"><a href="características-básicas-del-lenguaje-r.html"><i class="fa fa-check"></i><b>2.1</b> Características básicas del lenguaje R</a></li>
+<li class="chapter" data-level="2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html"><i class="fa fa-check"></i><b>2.2</b> Tipos de datos y operadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#tipos-básicos-de-datos"><i class="fa fa-check"></i><b>2.2.1</b> Tipos básicos de datos</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#operadores"><i class="fa fa-check"></i><b>2.2.2</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html"><i class="fa fa-check"></i><b>2.3</b> Estructura de datos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#vectores"><i class="fa fa-check"></i><b>2.3.1</b> Vectores</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#matrices-y-arrays"><i class="fa fa-check"></i><b>2.3.2</b> Matrices y arrays</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#listas"><i class="fa fa-check"></i><b>2.3.3</b> Listas</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#factores-factors"><i class="fa fa-check"></i><b>2.3.4</b> Factores (factors)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#tablas-data-frames"><i class="fa fa-check"></i><b>2.3.5</b> Tablas (data frames)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html"><i class="fa fa-check"></i><b>2.4</b> Estructuras de control</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#condicionales"><i class="fa fa-check"></i><b>2.4.1</b> Condicionales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#bucles"><i class="fa fa-check"></i><b>2.4.2</b> Bucles</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="funciones.html"><a href="funciones.html"><i class="fa fa-check"></i><b>2.5</b> Funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-datos-con-r-i.html"><a href="análisis-de-datos-con-r-i.html"><i class="fa fa-check"></i><b>3</b> Análisis de datos con R (I)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Manipulación de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#tratamiento-de-valores-desconocidos"><i class="fa fa-check"></i><b>3.1.1</b> Tratamiento de valores desconocidos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#conversión-de-tipos"><i class="fa fa-check"></i><b>3.1.2</b> Conversión de tipos</a></li>
+<li class="chapter" data-level="3.1.3" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#ordenación-de-datos"><i class="fa fa-check"></i><b>3.1.3</b> Ordenación de datos</a></li>
+<li class="chapter" data-level="3.1.4" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#búsqueda-de-datos"><i class="fa fa-check"></i><b>3.1.4</b> Búsqueda de datos</a></li>
+<li class="chapter" data-level="3.1.5" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#manipulación-de-cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.1.5</b> Manipulación de cadenas de caracteres</a></li>
+<li class="chapter" data-level="3.1.6" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#importarexportar-datos-desdea-fichero"><i class="fa fa-check"></i><b>3.1.6</b> Importar/exportar datos desde/a fichero</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html"><i class="fa fa-check"></i><b>3.2</b> Estadística básica con R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#distribuciones-estadísticas"><i class="fa fa-check"></i><b>3.2.1</b> Distribuciones estadísticas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2.2</b> Estadística descriptiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#test-estadísticos-básicos"><i class="fa fa-check"></i><b>3.2.3</b> Test estadísticos básicos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html"><i class="fa fa-check"></i><b>3.3</b> Introducción a la minería de datos con R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#análisis-de-correlación"><i class="fa fa-check"></i><b>3.3.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#regresión"><i class="fa fa-check"></i><b>3.3.2</b> Regresión</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#clasificación"><i class="fa fa-check"></i><b>3.3.3</b> Clasificación</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#agrupamiento-clustering"><i class="fa fa-check"></i><b>3.3.4</b> Agrupamiento (clustering)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-datos-con-r-ii.html"><a href="análisis-de-datos-con-r-ii.html"><i class="fa fa-check"></i><b>4</b> Análisis de datos con R (II)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html"><i class="fa fa-check"></i><b>4.1</b> Minería de texto</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html#introducción"><i class="fa fa-check"></i><b>4.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1.2" data-path="minería-de-texto.html"><a href="minería-de-texto.html#minería-de-texto-con-tm"><i class="fa fa-check"></i><b>4.1.2</b> Minería de texto con tm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="minería-de-texto.html"><a href="minería-de-texto.html#encontrar-términos-frecuentes"><i class="fa fa-check"></i><b>4.1.3</b> Encontrar términos frecuentes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="minería-de-texto.html"><a href="minería-de-texto.html#clasificación-1"><i class="fa fa-check"></i><b>4.1.4</b> Clasificación</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html"><i class="fa fa-check"></i><b>4.2</b> Análisis de grafos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#primeros-pasos-con-igraph"><i class="fa fa-check"></i><b>4.2.2</b> Primeros pasos con igraph</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#importandoexportando-grafos-desdea-fichero"><i class="fa fa-check"></i><b>4.2.3</b> Importando/exportando grafos desde/a fichero</a></li>
+<li class="chapter" data-level="4.2.4" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#análisis-de-grafos-con-igraph"><i class="fa fa-check"></i><b>4.2.4</b> Análisis de grafos con igraph</a></li>
+<li class="chapter" data-level="4.2.5" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#información-básica-de-grafos"><i class="fa fa-check"></i><b>4.2.5</b> Información básica de grafos</a></li>
+<li class="chapter" data-level="4.2.6" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#medidas-de-centralidad"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de centralidad</a></li>
+<li class="chapter" data-level="4.2.7" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#camino-más-corto"><i class="fa fa-check"></i><b>4.2.7</b> Camino más corto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="gráficos-y-visualización-de-datos.html"><a href="gráficos-y-visualización-de-datos.html"><i class="fa fa-check"></i><b>5</b> Gráficos y visualización de datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creando-gráficos-básicos-con-r.html"><a href="creando-gráficos-básicos-con-r.html"><i class="fa fa-check"></i><b>5.1</b> Creando gráficos básicos con R</a></li>
+<li class="chapter" data-level="5.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html"><i class="fa fa-check"></i><b>5.2</b> Personalización de gráficos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#símbolos-y-líneas"><i class="fa fa-check"></i><b>5.2.1</b> Símbolos y líneas</a></li>
+<li class="chapter" data-level="5.2.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#colores"><i class="fa fa-check"></i><b>5.2.2</b> Colores</a></li>
+<li class="chapter" data-level="5.2.3" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#límites-de-los-ejes"><i class="fa fa-check"></i><b>5.2.3</b> Límites de los ejes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#leyendas-y-texto"><i class="fa fa-check"></i><b>5.2.4</b> Leyendas y texto</a></li>
+<li class="chapter" data-level="5.2.5" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#añadiendo-una-rejilla"><i class="fa fa-check"></i><b>5.2.5</b> Añadiendo una rejilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="combinando-gráficos.html"><a href="combinando-gráficos.html"><i class="fa fa-check"></i><b>5.3</b> Combinando gráficos</a></li>
+<li class="chapter" data-level="5.4" data-path="exportando-gráficos-a-fichero.html"><a href="exportando-gráficos-a-fichero.html"><i class="fa fa-check"></i><b>5.4</b> Exportando gráficos a fichero</a></li>
+<li class="chapter" data-level="5.5" data-path="interacción-básica-con-gráficos.html"><a href="interacción-básica-con-gráficos.html"><i class="fa fa-check"></i><b>5.5</b> Interacción básica con gráficos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="información-extra.html"><a href="información-extra.html"><i class="fa fa-check"></i>Información extra</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Manual de R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="manipulación-de-datos" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Manipulación de datos</h2>
+<p>En los siguientes apartados veremos cómo resolver con R algunas tareas de manipulación de datos que van a aparecer frecuentemente al utilizar la herramienta.</p>
+<div id="tratamiento-de-valores-desconocidos" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Tratamiento de valores desconocidos</h3>
+<p>En ocasiones es posible que no sepamos cuál es el valor concreto de un determinado elemento de una estructura de datos (vector, lista, etc.). Para hacer frente a esta situación, R nos ofrece la posibilidad de utilizar un valor reservado, denominado NA (del inglés Not Available). Así por ejemplo:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="manipulación-de-datos.html#cb79-1" aria-hidden="true" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">2.4</span>, <span class="cn">NA</span>, <span class="fl">0.7</span>) </span>
+<span id="cb79-2"><a href="manipulación-de-datos.html#cb79-2" aria-hidden="true" tabindex="-1"></a>v </span>
+<span id="cb79-3"><a href="manipulación-de-datos.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1]  2.3 -1.2  2.4   NA  0.7 </span></span></code></pre></div>
+<p>Nótese que NA se representa sin comillas (no es una cadena de caracteres). Al realizar cualquier operación que involucre a un valor NA, el resultado será necesariamente un NA:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="manipulación-de-datos.html#cb80-1" aria-hidden="true" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">2.4</span>, <span class="cn">NA</span>, <span class="fl">0.7</span>) </span>
+<span id="cb80-2"><a href="manipulación-de-datos.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>v </span>
+<span id="cb80-3"><a href="manipulación-de-datos.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1]  4.6 -2.4  4.8   NA  1.4 </span></span></code></pre></div>
+<p>A través de la función is.na podemos comprobar si un determinado valor es o no desconocido:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="manipulación-de-datos.html#cb81-1" aria-hidden="true" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">2.4</span>, <span class="cn">NA</span>, <span class="fl">0.7</span>) </span>
+<span id="cb81-2"><a href="manipulación-de-datos.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(v) </span>
+<span id="cb81-3"><a href="manipulación-de-datos.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] FALSE FALSE FALSE  TRUE FALSE </span></span></code></pre></div>
+<p>También podemos eliminar los valores desconocidos de una estructura de datos (vector, data frame) utilizando la función na.omit:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="manipulación-de-datos.html#cb82-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">na.omit</span>(v)) </span>
+<span id="cb82-2"><a href="manipulación-de-datos.html#cb82-2" aria-hidden="true" tabindex="-1"></a>r </span>
+<span id="cb82-3"><a href="manipulación-de-datos.html#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1]  2.3 -1.2  2.4  0.7 </span></span></code></pre></div>
+</div>
+<div id="conversión-de-tipos" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Conversión de tipos</h3>
+<p>Como vimos en el tema anterior, existe una amplia variedad de tipos y estructuras de datos que podemos utilizar para manejar información en R. En ocasiones nos interesará poder convertir información de uno a otro tipo (por ejemplo, un número a una cadena de caracteres). Para facilitar esta tarea, existe toda una familia de funciones en R (cuyo nombre tiene la forma as.tipo, como por ejemplo, as.numeric) que podemos utilizar. Podemos ver a continuación algunos ejemplos de uso de estas funciones:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="manipulación-de-datos.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="st">&#39;12.3&#39;</span>) </span>
+<span id="cb83-2"><a href="manipulación-de-datos.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 12.3 </span></span>
+<span id="cb83-3"><a href="manipulación-de-datos.html#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-4"><a href="manipulación-de-datos.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir el data frame tabla</span></span>
+<span id="cb83-5"><a href="manipulación-de-datos.html#cb83-5" aria-hidden="true" tabindex="-1"></a>Nombre <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mario&quot;</span>,<span class="st">&quot;Anton&quot;</span>,<span class="st">&quot;Ana&quot;</span>)</span>
+<span id="cb83-6"><a href="manipulación-de-datos.html#cb83-6" aria-hidden="true" tabindex="-1"></a>Edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">23</span>, <span class="dv">36</span>)</span>
+<span id="cb83-7"><a href="manipulación-de-datos.html#cb83-7" aria-hidden="true" tabindex="-1"></a>Peso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">78.5</span>, <span class="fl">83.9</span>, <span class="fl">65.4</span>)</span>
+<span id="cb83-8"><a href="manipulación-de-datos.html#cb83-8" aria-hidden="true" tabindex="-1"></a>Sexo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>)</span>
+<span id="cb83-9"><a href="manipulación-de-datos.html#cb83-9" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Nombre,Edad,Peso,Sexo)</span>
+<span id="cb83-10"><a href="manipulación-de-datos.html#cb83-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-11"><a href="manipulación-de-datos.html#cb83-11" aria-hidden="true" tabindex="-1"></a>tabla</span>
+<span id="cb83-12"><a href="manipulación-de-datos.html#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Un data frame previamente definido </span></span>
+<span id="cb83-13"><a href="manipulación-de-datos.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   Nombre Edad Peso Sexo</span></span>
+<span id="cb83-14"><a href="manipulación-de-datos.html#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  Mario   36 78.5    M</span></span>
+<span id="cb83-15"><a href="manipulación-de-datos.html#cb83-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  Anton   23 83.9    M</span></span>
+<span id="cb83-16"><a href="manipulación-de-datos.html#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  Ana     36 65.4    F</span></span>
+<span id="cb83-17"><a href="manipulación-de-datos.html#cb83-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb83-18"><a href="manipulación-de-datos.html#cb83-18" aria-hidden="true" tabindex="-1"></a><span class="fu">as.matrix</span>(tabla) </span>
+<span id="cb83-19"><a href="manipulación-de-datos.html#cb83-19" aria-hidden="true" tabindex="-1"></a><span class="co">#      Nombre  Edad Peso   Sexo</span></span>
+<span id="cb83-20"><a href="manipulación-de-datos.html#cb83-20" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,] &quot;Mario&quot; &quot;36&quot; &quot;78.5&quot; &quot;M&quot;</span></span>
+<span id="cb83-21"><a href="manipulación-de-datos.html#cb83-21" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,] &quot;Antón&quot; &quot;23&quot; &quot;83.9&quot; &quot;M&quot;</span></span>
+<span id="cb83-22"><a href="manipulación-de-datos.html#cb83-22" aria-hidden="true" tabindex="-1"></a><span class="co"># [3,] &quot;Ana&quot;   &quot;36&quot; &quot;65.4&quot; &quot;F&quot; </span></span></code></pre></div>
+<p>Se puede ver en este último ejemplo que, dado que las matrices tienen que tener todos sus valores del mismo tipo, se convierten automáticamente todas las entradas del data frame a un tipo común (en este caso, cadena de caracteres).</p>
+<p>Otra función que puede ser de utilidad a la hora de convertir tipos es la función unlist, que devuelve un vector conteniendo los elementos de una lista.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="manipulación-de-datos.html#cb84-1" aria-hidden="true" tabindex="-1"></a>lista<span class="ot">&lt;-</span><span class="fu">list</span>(<span class="dv">2</span>, <span class="dv">1</span><span class="sc">+</span>3i, <span class="st">&quot;Hola&quot;</span>) </span>
+<span id="cb84-2"><a href="manipulación-de-datos.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(lista) </span>
+<span id="cb84-3"><a href="manipulación-de-datos.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;2&quot;    &quot;1+3i&quot; &quot;Hola&quot; </span></span></code></pre></div>
+<p>Donde de nuevo se puede ver que se ha llevado a cabo una conversión automática de los valores de la lista en cadenas de caracteres, puesto que los elementos de un vector deben ser todos del mismo tipo.</p>
+</div>
+<div id="ordenación-de-datos" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Ordenación de datos</h3>
+<p>R nos ofrece funciones de librería para poder llevar a cabo la ordenación de los datos incluidos en una estructura. Ahora bien, la función a utilizar dependerá de la estructura concreta de datos con la que vayamos a trabajar:</p>
+<ul>
+<li>La función sort se emplea cuando queremos ordenar vectores. Por defecto la ordenación es ascendente, aunque se puede configurar mediante el parámetro decreasing:</li>
+</ul>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="manipulación-de-datos.html#cb85-1" aria-hidden="true" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span>) </span>
+<span id="cb85-2"><a href="manipulación-de-datos.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(v) </span>
+<span id="cb85-3"><a href="manipulación-de-datos.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2  0  1  2  3  5 </span></span>
+<span id="cb85-4"><a href="manipulación-de-datos.html#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="manipulación-de-datos.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(v, <span class="at">decreasing=</span>T) </span>
+<span id="cb85-6"><a href="manipulación-de-datos.html#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1]  5  3  2  1  0 -2 </span></span></code></pre></div>
+<p>La función order se utiliza fundamentalmente con data frames y nos va a permitir ordenar la tabla en base a una columna o columnas de la misma. Podemos utilizar también el parámetro decreasing para indicar si el orden es o no decreciente.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="manipulación-de-datos.html#cb86-1" aria-hidden="true" tabindex="-1"></a>tabla   <span class="co"># Un data frame previamente creado </span></span>
+<span id="cb86-2"><a href="manipulación-de-datos.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   Nombre Edad Peso Sexo </span></span>
+<span id="cb86-3"><a href="manipulación-de-datos.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  Mario   36     78.5    M </span></span>
+<span id="cb86-4"><a href="manipulación-de-datos.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  Antón   23     83.9    M </span></span>
+<span id="cb86-5"><a href="manipulación-de-datos.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    Ana   36     65.4    F </span></span>
+<span id="cb86-6"><a href="manipulación-de-datos.html#cb86-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="manipulación-de-datos.html#cb86-7" aria-hidden="true" tabindex="-1"></a>tabla[<span class="fu">order</span>(tabla<span class="sc">$</span>Edad,tabla<span class="sc">$</span>Peso),]  </span>
+<span id="cb86-8"><a href="manipulación-de-datos.html#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   Nombre Edad Peso Sexo </span></span>
+<span id="cb86-9"><a href="manipulación-de-datos.html#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  Antón   23    83.9    M </span></span>
+<span id="cb86-10"><a href="manipulación-de-datos.html#cb86-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    Ana   36    65.4    F </span></span>
+<span id="cb86-11"><a href="manipulación-de-datos.html#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  Mario   36    78.5    M </span></span></code></pre></div>
+</div>
+<div id="búsqueda-de-datos" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Búsqueda de datos</h3>
+<p>En el tema anterior vimos cómo podíamos seleccionar ciertos datos de una estructura de datos concreta (utilizando los operadores de corchete [] y corchete doble. La función which, de R está relacionada con estos operadores, ya que nos permite buscar los elemento de una determinada estructura de datos que cumplan cierta condición, devolviéndonos la posición (o posiciones) de los elementos que cumplen la condición:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="manipulación-de-datos.html#cb87-1" aria-hidden="true" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span>) </span>
+<span id="cb87-2"><a href="manipulación-de-datos.html#cb87-2" aria-hidden="true" tabindex="-1"></a>v[v<span class="sc">&lt;</span><span class="dv">0</span>]  <span class="co"># Selección </span></span>
+<span id="cb87-3"><a href="manipulación-de-datos.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2 </span></span>
+<span id="cb87-4"><a href="manipulación-de-datos.html#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a href="manipulación-de-datos.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(v<span class="sc">&lt;</span><span class="dv">0</span>)  <span class="co"># Buscar el índice dónde se cumple la condición </span></span>
+<span id="cb87-6"><a href="manipulación-de-datos.html#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 4 </span></span>
+<span id="cb87-7"><a href="manipulación-de-datos.html#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-8"><a href="manipulación-de-datos.html#cb87-8" aria-hidden="true" tabindex="-1"></a>tabla   <span class="co"># Un data frame previamente creado </span></span>
+<span id="cb87-9"><a href="manipulación-de-datos.html#cb87-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   Nombre Edad Peso Sexo </span></span>
+<span id="cb87-10"><a href="manipulación-de-datos.html#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  Mario   36     78.5    M </span></span>
+<span id="cb87-11"><a href="manipulación-de-datos.html#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  Antón   23     83.9    M </span></span>
+<span id="cb87-12"><a href="manipulación-de-datos.html#cb87-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    Ana   36     65.4    F </span></span>
+<span id="cb87-13"><a href="manipulación-de-datos.html#cb87-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-14"><a href="manipulación-de-datos.html#cb87-14" aria-hidden="true" tabindex="-1"></a>tabla[(tabla<span class="sc">$</span>Peso<span class="sc">&gt;</span><span class="dv">70</span>)<span class="sc">&amp;</span>(tabla<span class="sc">$</span>Edad<span class="sc">&lt;</span><span class="dv">30</span>),]  <span class="co"># Selección </span></span>
+<span id="cb87-15"><a href="manipulación-de-datos.html#cb87-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   Nombre Edad Peso Sexo </span></span>
+<span id="cb87-16"><a href="manipulación-de-datos.html#cb87-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2  Antón   23 83.9    M </span></span>
+<span id="cb87-17"><a href="manipulación-de-datos.html#cb87-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-18"><a href="manipulación-de-datos.html#cb87-18" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>((tabla<span class="sc">$</span>Peso<span class="sc">&gt;</span><span class="dv">70</span>)<span class="sc">&amp;</span>(tabla<span class="sc">$</span>Edad<span class="sc">&lt;</span><span class="dv">30</span>))  <span class="co"># Búsqueda de índices </span></span>
+<span id="cb87-19"><a href="manipulación-de-datos.html#cb87-19" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2 </span></span></code></pre></div>
+</div>
+<div id="manipulación-de-cadenas-de-caracteres" class="section level3" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Manipulación de cadenas de caracteres</h3>
+<p>Como indicamos en el tema anterior, la manipulación de cadenas de caracteres suele llevarse a cabo por medio de funciones, no operadores (por ejemplo, no podemos sumar cadenas de caracteres). Algunas de las funciones de manipulación de cadenas de caracteres más utilizadas son:</p>
+<ul>
+<li><p>La <strong>función substr</strong> que permite extraer (o reemplazar) una subcadena dentro de una cadena.</p></li>
+<li><p>La <strong>función grep</strong> que permite la búsqueda de patrones en una cadena, bien indicados mediante una expresión regular o bien patrones fijos (para lo que usaremos el parámetro fixed con valor TRUE en la llamada a la función).</p></li>
+<li><p>La <strong>función strsplit</strong> permite trocear una cadena de caracteres mediante un delimitador dado.</p></li>
+<li><p>La función paste permite unir cadenas utilizando un separador dado entre ellas, que se establece mediante el parámetro sep. Cuando los argumentos contienen múltiples elementos (por ejemplo, son vectores) se puede hacer que se concatenen todos ellos con un separador dado en el parámetro collapse.</p></li>
+</ul>
+<p>Podemos ver a continuación algunos ejemplos de uso de estas funciones:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="manipulación-de-datos.html#cb88-1" aria-hidden="true" tabindex="-1"></a>cad<span class="ot">&lt;-</span><span class="st">&quot;Hola Mundo&quot;</span> </span>
+<span id="cb88-2"><a href="manipulación-de-datos.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(cad, <span class="dv">2</span>, <span class="dv">4</span>) </span>
+<span id="cb88-3"><a href="manipulación-de-datos.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;ola&quot; </span></span>
+<span id="cb88-4"><a href="manipulación-de-datos.html#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="manipulación-de-datos.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(cad, <span class="dv">2</span>, <span class="dv">4</span>)<span class="ot">&lt;-</span><span class="st">&quot;OLA&quot;</span> </span>
+<span id="cb88-6"><a href="manipulación-de-datos.html#cb88-6" aria-hidden="true" tabindex="-1"></a>cad </span>
+<span id="cb88-7"><a href="manipulación-de-datos.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;HOLA Mundo&quot; </span></span>
+<span id="cb88-8"><a href="manipulación-de-datos.html#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="manipulación-de-datos.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;.ab.&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Ejemplo&quot;</span>,<span class="st">&quot;Cabeza&quot;</span>,<span class="st">&quot;Abecedario&quot;</span>,<span class="st">&quot;C.ab.o&quot;</span>)) </span>
+<span id="cb88-10"><a href="manipulación-de-datos.html#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2 4 </span></span>
+<span id="cb88-11"><a href="manipulación-de-datos.html#cb88-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-12"><a href="manipulación-de-datos.html#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;.ab.&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Ejemplo&quot;</span>,<span class="st">&quot;Cabeza&quot;</span>,<span class="st">&quot;Abecedario&quot;</span>,<span class="st">&quot;C.ab.o&quot;</span>), <span class="at">fixed=</span>T) </span>
+<span id="cb88-13"><a href="manipulación-de-datos.html#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 4 </span></span>
+<span id="cb88-14"><a href="manipulación-de-datos.html#cb88-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-15"><a href="manipulación-de-datos.html#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&quot;En un lugar de la Mancha&quot;</span>, <span class="st">&quot; &quot;</span>) </span>
+<span id="cb88-16"><a href="manipulación-de-datos.html#cb88-16" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]] </span>
+<span id="cb88-17"><a href="manipulación-de-datos.html#cb88-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;En&quot;     &quot;un&quot;     &quot;lugar&quot;  &quot;de&quot;     &quot;la&quot;     &quot;Mancha&quot; </span></span>
+<span id="cb88-18"><a href="manipulación-de-datos.html#cb88-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-19"><a href="manipulación-de-datos.html#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hola&quot;</span>, <span class="st">&quot;Mundo&quot;</span>, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>) </span>
+<span id="cb88-20"><a href="manipulación-de-datos.html#cb88-20" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;Hola_Mundo&quot; </span></span>
+<span id="cb88-21"><a href="manipulación-de-datos.html#cb88-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-22"><a href="manipulación-de-datos.html#cb88-22" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="st">&quot;a&quot;</span>, <span class="at">sep=</span><span class="st">&quot;+&quot;</span>) </span>
+<span id="cb88-23"><a href="manipulación-de-datos.html#cb88-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;1+a&quot; &quot;2+a&quot; &quot;3+a&quot; &quot;4+a&quot; &quot;5+a&quot; </span></span>
+<span id="cb88-24"><a href="manipulación-de-datos.html#cb88-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-25"><a href="manipulación-de-datos.html#cb88-25" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">1</span>), <span class="at">sep=</span><span class="st">&quot;*&quot;</span>, <span class="at">collapse=</span><span class="st">&quot;-&quot;</span>) </span>
+<span id="cb88-26"><a href="manipulación-de-datos.html#cb88-26" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;1*5-2*4-3*3-4*2-5*1&quot; </span></span></code></pre></div>
+</div>
+<div id="importarexportar-datos-desdea-fichero" class="section level3" number="3.1.6">
+<h3><span class="header-section-number">3.1.6</span> Importar/exportar datos desde/a fichero</h3>
+<p>Aunque en los ejemplos que hemos visto hasta ahora hemos introducido la información a analizar directamente en la consola de R, el caso más habitual es que esta se encuentre en un fichero, y que, por tanto, tengamos que importar los datos antes de proceder a su análisis. Aunque existen paquetes de R que nos permiten interactuar con formatos diversos (por ejemplo, XML, Excel, formatos de otro software estadístico, como SPSS o SAS, etc.) el caso más habitual (y el que trataremos en esta sección) es el de leer los datos desde un fichero de texto.</p>
+<p>Para poder importar datos desde fichero al entorno de R usaremos fundamentalmente una de las dos siguientes opciones:</p>
+<ul>
+<li><p>La función <strong>read.table</strong> que nos permite leer datos en formato tabular (y que se utiliza para leer data frames). Los principales argumentos de esta función son:</p>
+<ul>
+<li><p><strong>file</strong>: representa el fichero del que queremos leer los datos.</p></li>
+<li><p><strong>header</strong>: un valor lógico que nos indica si la primera línea debe ser tratada como la cabecera (nombre de las columnas de datos).</p></li>
+<li><p><strong>sep</strong>: por defecto se usan como delimitadores los espacios en blanco (espacios, tabuladores, fines de línea). Si ese no es nuestro caso, se puede indicar expresamente el delimitador que separa los valores con este parámetro.</p></li>
+<li><p><strong>fileEncoding</strong>: indica cómo se representa la información almacenada en el fichero (con qué estándar de codificación de caracteres, como UTF-8, ASCII, etc).</p></li>
+</ul></li>
+</ul>
+<p>Por ejemplo, si tenemos un fichero cuya ruta es /path/to/datos.dat y cuyo contenido (en codificación UTF-8) es:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="manipulación-de-datos.html#cb89-1" aria-hidden="true" tabindex="-1"></a>Nombre,Edad,Peso,Sexo </span>
+<span id="cb89-2"><a href="manipulación-de-datos.html#cb89-2" aria-hidden="true" tabindex="-1"></a>Mario,<span class="dv">36</span>,<span class="fl">78.5</span>,M </span>
+<span id="cb89-3"><a href="manipulación-de-datos.html#cb89-3" aria-hidden="true" tabindex="-1"></a>Antón,<span class="dv">23</span>,<span class="fl">83.9</span>,M </span>
+<span id="cb89-4"><a href="manipulación-de-datos.html#cb89-4" aria-hidden="true" tabindex="-1"></a>Ana,<span class="dv">36</span>,<span class="fl">65.4</span>,F </span></code></pre></div>
+<p>Podemos leer esos datos en un data frame de R ejecutando en la consola:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="manipulación-de-datos.html#cb90-1" aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&quot;/path/to/datos.dat&quot;</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">fileEncoding=</span><span class="st">&quot;UTF-8&quot;</span>) </span></code></pre></div>
+<p>Si no conocemos la ruta del fichero donde se encuentran los datos puede ser de utilidad la función file.choose que abre una ventana del explorador de ficheros para permitir elegir interactivamente dicha ruta.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="manipulación-de-datos.html#cb91-1" aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">fileEncoding=</span><span class="st">&quot;UTF-8&quot;</span>) </span></code></pre></div>
+<ul>
+<li><p>La <strong>función scan</strong> que se suele utilizar cuando lo que queremos leer son vectores. Además de los argumentos file, sep y fileEncoding, que ya hemos visto en read.table, otros argumentos relevantes son:</p>
+<ul>
+<li><p><strong>what</strong>: indica qué tipo de datos vamos a leer del fichero (logical, numeric, complex, etc).</p></li>
+<li><p><strong>n</strong>: número máximo de elementos que queremos leer del fichero (si hay más, se descartan).</p></li>
+</ul></li>
+</ul>
+<p>Por ejemplo, si tenemos un fichero de texto /path/to/lista.dat con el siguiente contenido:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="manipulación-de-datos.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span> </span></code></pre></div>
+<p>Podemos leer sus 8 primeros datos como un vector numérico de R haciendo:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="manipulación-de-datos.html#cb93-1" aria-hidden="true" tabindex="-1"></a>vec<span class="ot">&lt;-</span><span class="fu">scan</span>(<span class="st">&quot;/path/to/lista.dat&quot;</span>, <span class="at">what=</span><span class="fu">numeric</span>(), <span class="at">n=</span><span class="dv">8</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>) </span></code></pre></div>
+<p>También es posible exportar la información a un fichero de texto. Dos de las funciones más utilizadas con este fin son:</p>
+<ul>
+<li><p>La <strong>función</strong> <strong>write.table</strong> que permite volcar a fichero una tabla (data frame). Si consultamos la ayuda de R, veremos que sus principales argumentos son:</p>
+<ul>
+<li><p><strong>x</strong>: el data frame que queremos volcar a fichero.</p></li>
+<li><p><strong>file</strong>: el fichero de destino.</p></li>
+<li><p><strong>sep</strong>: separador de los distintos datos.</p></li>
+<li><p><strong>fileEncoding</strong>: codificación de caracteres a utilizar.</p></li>
+</ul></li>
+<li><p>La función write que se suele utilizar para exportar vectores y que tiene tres argumentos principales:</p>
+<ul>
+<li><p><strong>x</strong>: datos a exportar.</p></li>
+<li><p><strong>file</strong>: fichero de destino.</p></li>
+<li><p><strong>sep</strong>: separador de los distintos datos.</p></li>
+</ul></li>
+</ul>
+<p>Por ejemplo, podemos volcar a fichero el data frame tabla y el vector vec leídos en los ejemplos anteriores haciendo:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="manipulación-de-datos.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(tabla, <span class="at">file=</span><span class="st">&quot;/path/to/tabla.data&quot;</span>) </span>
+<span id="cb94-2"><a href="manipulación-de-datos.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(vec, <span class="at">file=</span><span class="st">&quot;/path/to/vector.data&quot;</span>) </span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-de-datos-con-r-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estadística-básica-con-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["github", "linkedin", "weibo", "instapaper", "vk", "whatsapp"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rubend18/manual-de-r/edit/master/03-analisis1.Rmd",
+"text": "Edit "
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/rubend18/manual-de-r/blob/master/03-analisis1.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

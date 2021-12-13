@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.2 Estadística básica con R | Manual de R</title>
+  <meta name="description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.2 Estadística básica con R | Manual de R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/img/cover.jpg" />
+  <meta property="og:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="github-repo" content="rubend18/manual-de-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.2 Estadística básica con R | Manual de R" />
+  
+  <meta name="twitter:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="twitter:image" content="/img/cover.jpg" />
+
+<meta name="author" content="Rubén Darío Jaramillo (rubend18@hotmail.com)" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="manipulación-de-datos.html"/>
+<link rel="next" href="introducción-a-la-minería-de-datos-con-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Manual de R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path="compilación.html"><a href="compilación.html"><i class="fa fa-check"></i>Compilación</a></li>
+<li class="chapter" data-level="1" data-path="introducción-a-r.html"><a href="introducción-a-r.html"><i class="fa fa-check"></i><b>1</b> Introducción a R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="qué-es-r.html"><a href="qué-es-r.html"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es R?</a></li>
+<li class="chapter" data-level="1.2" data-path="orígenes-y-antecedentes.html"><a href="orígenes-y-antecedentes.html"><i class="fa fa-check"></i><b>1.2</b> Orígenes y antecedentes</a></li>
+<li class="chapter" data-level="1.3" data-path="por-qué-r.html"><a href="por-qué-r.html"><i class="fa fa-check"></i><b>1.3</b> ¿Por qué R?</a></li>
+<li class="chapter" data-level="1.4" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html"><i class="fa fa-check"></i><b>1.4</b> Instalación del entorno de R</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-windows-y-mac-os-x"><i class="fa fa-check"></i><b>1.4.1</b> Instalación en Windows y Mac OS X</a></li>
+<li class="chapter" data-level="1.4.2" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-linux"><i class="fa fa-check"></i><b>1.4.2</b> Instalación en Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html"><i class="fa fa-check"></i><b>1.5</b> Primeros pasos con R</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#realizando-operaciones-basicas"><i class="fa fa-check"></i><b>1.5.1</b> Realizando operaciones basicas</a></li>
+<li class="chapter" data-level="1.5.2" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#llamando-a-funciones"><i class="fa fa-check"></i><b>1.5.2</b> Llamando a funciones</a></li>
+<li class="chapter" data-level="1.5.3" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#accediendo-a-la-ayuda-de-r"><i class="fa fa-check"></i><b>1.5.3</b> Accediendo a la ayuda de R</a></li>
+<li class="chapter" data-level="1.5.4" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#trabajando-con-variables"><i class="fa fa-check"></i><b>1.5.4</b> Trabajando con variables</a></li>
+<li class="chapter" data-level="1.5.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.5.5</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.5.6" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#ejecutando-expresiones-desde-un-fichero-de-texto"><i class="fa fa-check"></i><b>1.5.6</b> Ejecutando expresiones desde un fichero de texto</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><i class="fa fa-check"></i><b>1.6</b> Consejos prácticos sobre el uso de la consola de R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="el-lenguaje-r.html"><a href="el-lenguaje-r.html"><i class="fa fa-check"></i><b>2</b> El lenguaje R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="características-básicas-del-lenguaje-r.html"><a href="características-básicas-del-lenguaje-r.html"><i class="fa fa-check"></i><b>2.1</b> Características básicas del lenguaje R</a></li>
+<li class="chapter" data-level="2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html"><i class="fa fa-check"></i><b>2.2</b> Tipos de datos y operadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#tipos-básicos-de-datos"><i class="fa fa-check"></i><b>2.2.1</b> Tipos básicos de datos</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#operadores"><i class="fa fa-check"></i><b>2.2.2</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html"><i class="fa fa-check"></i><b>2.3</b> Estructura de datos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#vectores"><i class="fa fa-check"></i><b>2.3.1</b> Vectores</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#matrices-y-arrays"><i class="fa fa-check"></i><b>2.3.2</b> Matrices y arrays</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#listas"><i class="fa fa-check"></i><b>2.3.3</b> Listas</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#factores-factors"><i class="fa fa-check"></i><b>2.3.4</b> Factores (factors)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#tablas-data-frames"><i class="fa fa-check"></i><b>2.3.5</b> Tablas (data frames)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html"><i class="fa fa-check"></i><b>2.4</b> Estructuras de control</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#condicionales"><i class="fa fa-check"></i><b>2.4.1</b> Condicionales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#bucles"><i class="fa fa-check"></i><b>2.4.2</b> Bucles</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="funciones.html"><a href="funciones.html"><i class="fa fa-check"></i><b>2.5</b> Funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-datos-con-r-i.html"><a href="análisis-de-datos-con-r-i.html"><i class="fa fa-check"></i><b>3</b> Análisis de datos con R (I)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Manipulación de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#tratamiento-de-valores-desconocidos"><i class="fa fa-check"></i><b>3.1.1</b> Tratamiento de valores desconocidos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#conversión-de-tipos"><i class="fa fa-check"></i><b>3.1.2</b> Conversión de tipos</a></li>
+<li class="chapter" data-level="3.1.3" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#ordenación-de-datos"><i class="fa fa-check"></i><b>3.1.3</b> Ordenación de datos</a></li>
+<li class="chapter" data-level="3.1.4" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#búsqueda-de-datos"><i class="fa fa-check"></i><b>3.1.4</b> Búsqueda de datos</a></li>
+<li class="chapter" data-level="3.1.5" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#manipulación-de-cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.1.5</b> Manipulación de cadenas de caracteres</a></li>
+<li class="chapter" data-level="3.1.6" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#importarexportar-datos-desdea-fichero"><i class="fa fa-check"></i><b>3.1.6</b> Importar/exportar datos desde/a fichero</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html"><i class="fa fa-check"></i><b>3.2</b> Estadística básica con R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#distribuciones-estadísticas"><i class="fa fa-check"></i><b>3.2.1</b> Distribuciones estadísticas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2.2</b> Estadística descriptiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#test-estadísticos-básicos"><i class="fa fa-check"></i><b>3.2.3</b> Test estadísticos básicos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html"><i class="fa fa-check"></i><b>3.3</b> Introducción a la minería de datos con R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#análisis-de-correlación"><i class="fa fa-check"></i><b>3.3.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#regresión"><i class="fa fa-check"></i><b>3.3.2</b> Regresión</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#clasificación"><i class="fa fa-check"></i><b>3.3.3</b> Clasificación</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#agrupamiento-clustering"><i class="fa fa-check"></i><b>3.3.4</b> Agrupamiento (clustering)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-datos-con-r-ii.html"><a href="análisis-de-datos-con-r-ii.html"><i class="fa fa-check"></i><b>4</b> Análisis de datos con R (II)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html"><i class="fa fa-check"></i><b>4.1</b> Minería de texto</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html#introducción"><i class="fa fa-check"></i><b>4.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1.2" data-path="minería-de-texto.html"><a href="minería-de-texto.html#minería-de-texto-con-tm"><i class="fa fa-check"></i><b>4.1.2</b> Minería de texto con tm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="minería-de-texto.html"><a href="minería-de-texto.html#encontrar-términos-frecuentes"><i class="fa fa-check"></i><b>4.1.3</b> Encontrar términos frecuentes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="minería-de-texto.html"><a href="minería-de-texto.html#clasificación-1"><i class="fa fa-check"></i><b>4.1.4</b> Clasificación</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html"><i class="fa fa-check"></i><b>4.2</b> Análisis de grafos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#primeros-pasos-con-igraph"><i class="fa fa-check"></i><b>4.2.2</b> Primeros pasos con igraph</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#importandoexportando-grafos-desdea-fichero"><i class="fa fa-check"></i><b>4.2.3</b> Importando/exportando grafos desde/a fichero</a></li>
+<li class="chapter" data-level="4.2.4" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#análisis-de-grafos-con-igraph"><i class="fa fa-check"></i><b>4.2.4</b> Análisis de grafos con igraph</a></li>
+<li class="chapter" data-level="4.2.5" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#información-básica-de-grafos"><i class="fa fa-check"></i><b>4.2.5</b> Información básica de grafos</a></li>
+<li class="chapter" data-level="4.2.6" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#medidas-de-centralidad"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de centralidad</a></li>
+<li class="chapter" data-level="4.2.7" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#camino-más-corto"><i class="fa fa-check"></i><b>4.2.7</b> Camino más corto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="gráficos-y-visualización-de-datos.html"><a href="gráficos-y-visualización-de-datos.html"><i class="fa fa-check"></i><b>5</b> Gráficos y visualización de datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creando-gráficos-básicos-con-r.html"><a href="creando-gráficos-básicos-con-r.html"><i class="fa fa-check"></i><b>5.1</b> Creando gráficos básicos con R</a></li>
+<li class="chapter" data-level="5.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html"><i class="fa fa-check"></i><b>5.2</b> Personalización de gráficos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#símbolos-y-líneas"><i class="fa fa-check"></i><b>5.2.1</b> Símbolos y líneas</a></li>
+<li class="chapter" data-level="5.2.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#colores"><i class="fa fa-check"></i><b>5.2.2</b> Colores</a></li>
+<li class="chapter" data-level="5.2.3" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#límites-de-los-ejes"><i class="fa fa-check"></i><b>5.2.3</b> Límites de los ejes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#leyendas-y-texto"><i class="fa fa-check"></i><b>5.2.4</b> Leyendas y texto</a></li>
+<li class="chapter" data-level="5.2.5" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#añadiendo-una-rejilla"><i class="fa fa-check"></i><b>5.2.5</b> Añadiendo una rejilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="combinando-gráficos.html"><a href="combinando-gráficos.html"><i class="fa fa-check"></i><b>5.3</b> Combinando gráficos</a></li>
+<li class="chapter" data-level="5.4" data-path="exportando-gráficos-a-fichero.html"><a href="exportando-gráficos-a-fichero.html"><i class="fa fa-check"></i><b>5.4</b> Exportando gráficos a fichero</a></li>
+<li class="chapter" data-level="5.5" data-path="interacción-básica-con-gráficos.html"><a href="interacción-básica-con-gráficos.html"><i class="fa fa-check"></i><b>5.5</b> Interacción básica con gráficos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="información-extra.html"><a href="información-extra.html"><i class="fa fa-check"></i>Información extra</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Manual de R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estadística-básica-con-r" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Estadística básica con R</h2>
+<p>En los siguientes apartados veremos cómo utilizar R para realizar tareas estadísticas básicas. En particular, trataremos aspectos como:</p>
+<ol style="list-style-type: decimal">
+<li><p>Manejo de distribuciones estadísticas de uso frecuente (como la distribución normal).</p></li>
+<li><p>Caracterización estadística de datos (estadística descriptiva).</p></li>
+<li><p>Realización de contrastes de hipótesis mediante test básicos (estadística inferencial).</p></li>
+</ol>
+<div id="distribuciones-estadísticas" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Distribuciones estadísticas</h3>
+<p>Las distribuciones más habitualmente utilizadas a la hora de modelar estadísticamente unos datos o para llevar a cabo tests están implementadas en R. Entre ellas se incluyen (con su nombre en R entre paréntesis) las distribuciones binomial (binom), Chi-cuadrado (chisq), exponencial (exp), normal (norm), log-normal (lnorm), poisson (pois), t de Student (t), uniforme (unif), etc.</p>
+<p>Para cada una de estas distribuciones R ofrece funciones que nos permiten calcular cuatro tipos de valores vinculados a ellas:</p>
+<ol style="list-style-type: decimal">
+<li><p>Valores de la función de densidad de probabilidad</p></li>
+<li><p>Valores de la función de distribución</p></li>
+<li><p>Cuantiles</p></li>
+<li><p>Muestras pseudoaleatorias de esas distribuciones</p></li>
+</ol>
+<p>Además, estas funciones utilizan un esquema de nombramiento homogéneo, para facilitar su uso. Así, si el nombre de la distribución es xxx (por ejemplo, norm para la distribución normal), los valores de la función de densidad de probabilidad se obtendrán con dxxx (dnorm), los de la función de distribución con pxxx (pnorm), los cuantiles con qxxx (qnorm) y las muestras pseudoaleatorias con rxxx (rnorm). Por ejemplo, para una distribución normal de media 0 y desviación típica 1:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="estadística-básica-con-r.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)     <span class="co"># Densidad de probabilidad en 0 </span></span>
+<span id="cb95-2"><a href="estadística-básica-con-r.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.3989423 </span></span>
+<span id="cb95-3"><a href="estadística-básica-con-r.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="estadística-básica-con-r.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)     <span class="co"># Función de distribución en 0 </span></span>
+<span id="cb95-5"><a href="estadística-básica-con-r.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.5 </span></span>
+<span id="cb95-6"><a href="estadística-básica-con-r.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="estadística-básica-con-r.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)  <span class="co"># Cuantil 0.25 (primer cuartil) </span></span>
+<span id="cb95-8"><a href="estadística-básica-con-r.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -0.6744898 </span></span>
+<span id="cb95-9"><a href="estadística-básica-con-r.html#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="estadística-básica-con-r.html#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)     <span class="co"># 5 muestras pseudoaleatorias  </span></span>
+<span id="cb95-11"><a href="estadística-básica-con-r.html#cb95-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -0.4711529 -0.9017104  0.3270642 -1.1161598 -0.7629164 </span></span></code></pre></div>
+</div>
+<div id="estadística-descriptiva" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Estadística descriptiva</h3>
+<p>Además de trabajar con distribuciones estadísticas teóricas, R nos permite analizar unos datos para caracterizarlos estadísticamente. Entre las funciones más habitualmente empleadas a la hora de llevar a cabo este tipo de análisis se encuentran:</p>
+<ul>
+<li><p><strong>Función mean</strong>: Nos permite calcular la media.</p></li>
+<li><p><strong>Función sd</strong>: Sirve para obtener la desviación estándar.</p></li>
+<li><p><strong>Función var</strong>: Nos devuelve la varianza.</p></li>
+<li><p><strong>Función quantile</strong>: Para obtener los cuantiles (por defecto, cuartiles, pero se puede configurar con el parámetro probs).</p></li>
+<li><p><strong>Función median</strong>: Permite calcular la mediana de la muestra.</p></li>
+<li><p><strong>Función summary</strong>: Devuelve un resumen con los principales estadísticos de los datos que se pasan como argumento.</p></li>
+</ul>
+<p>Podemos ver a continuación ejemplos de uso de estas funciones:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estadística-básica-con-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb96-2"><a href="estadística-básica-con-r.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos)</span>
+<span id="cb96-3"><a href="estadística-básica-con-r.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -0.04541376</span></span>
+<span id="cb96-4"><a href="estadística-básica-con-r.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos)</span>
+<span id="cb96-5"><a href="estadística-básica-con-r.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.9461041</span></span>
+<span id="cb96-6"><a href="estadística-básica-con-r.html#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(datos)</span>
+<span id="cb96-7"><a href="estadística-básica-con-r.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.895113</span></span>
+<span id="cb96-8"><a href="estadística-básica-con-r.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(datos)</span>
+<span id="cb96-9"><a href="estadística-básica-con-r.html#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -0.1267531</span></span>
+<span id="cb96-10"><a href="estadística-básica-con-r.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(datos)</span>
+<span id="cb96-11"><a href="estadística-básica-con-r.html#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="co">#         0%        25%        50%        75%       100%</span></span>
+<span id="cb96-12"><a href="estadística-básica-con-r.html#cb96-12" aria-hidden="true" tabindex="-1"></a><span class="co"># -1.6806238 -0.7602521 -0.1267531  0.5466689  2.5583851</span></span>
+<span id="cb96-13"><a href="estadística-básica-con-r.html#cb96-13" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(datos, <span class="at">probs=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.2</span>))</span>
+<span id="cb96-14"><a href="estadística-básica-con-r.html#cb96-14" aria-hidden="true" tabindex="-1"></a><span class="co">#         0%        20%        40%        60%        80%       100%</span></span>
+<span id="cb96-15"><a href="estadística-básica-con-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a><span class="co"># -1.6806238 -0.9240561 -0.4597640  0.2103897  0.7079928  2.5583851</span></span>
+<span id="cb96-16"><a href="estadística-básica-con-r.html#cb96-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(datos)</span>
+<span id="cb96-17"><a href="estadística-básica-con-r.html#cb96-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.</span></span>
+<span id="cb96-18"><a href="estadística-básica-con-r.html#cb96-18" aria-hidden="true" tabindex="-1"></a><span class="co"># -1.68100 -0.76030 -0.12680 -0.04541  0.54670  2.55800</span></span></code></pre></div>
+<p>Además de obtener sus estadísticos básicos, se pueden caracterizar unos datos de manera gráfica. Tres de los procedimientos más utilizados para esto son la representación del histograma (que nos da una estimación de la función de densidad de probabilidad), la representación de la distribución acumulada empírica (que nos da una estimación de la función de distribución) y la representación del diagrama de caja (boxplot) de los datos. Para obtener estas representaciones gráficas en R, utilizaremos las siguientes funciones:</p>
+<ul>
+<li>La <strong>función boxplot</strong> dibuja el diagrama de caja, recibiendo como parámetro los datos a representar:</li>
+</ul>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estadística-básica-con-r.html#cb97-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb97-2"><a href="estadística-básica-con-r.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(datos)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-92"></span>
+<img src="my-book_files/figure-html/unnamed-chunk-92-1.svg" alt="Ejemplo de diagrama de caja." width="672" />
+<p class="caption">
+Figura 3.1: Ejemplo de diagrama de caja.
+</p>
+</div>
+<ul>
+<li>La <strong>función ecdf</strong> nos permite obtener la distribución acumulada empírica, que se puede dibujar a continuación mediante una llamada a la función plot (función genérica de representación gráfica en R, que veremos en temas posteriores):</li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estadística-básica-con-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb98-2"><a href="estadística-básica-con-r.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(datos)) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-93"></span>
+<img src="my-book_files/figure-html/unnamed-chunk-93-1.svg" alt="Ejemplo de representación de distribución acumulada empírica." width="672" />
+<p class="caption">
+Figura 3.2: Ejemplo de representación de distribución acumulada empírica.
+</p>
+</div>
+<ul>
+<li><p>La <strong>función hist</strong> representa el histograma. Los parámetros principales de esta función según la documentación de R son:</p>
+<ul>
+<li><p><strong>x</strong>: los datos a representar en el histograma.</p></li>
+<li><p><strong>breaks</strong>: sirve para especificar los límites de los intervalos en los que está dividido el eje-x del histograma. Suele tomar como valor un número (que indica cuántos intervalos del mismo tamaño se deben representar) o un vector (con los límites de los intervalos).</p></li>
+<li><p><strong>freq</strong>: un valor lógico que indica si se deben representar en el eje-y frecuencias (TRUE) o probabilidades (FALSE).</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estadística-básica-con-r.html#cb99-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb99-2"><a href="estadística-básica-con-r.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(datos, <span class="at">breaks=</span><span class="dv">10</span>, <span class="at">freq=</span>F) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-94"></span>
+<img src="my-book_files/figure-html/unnamed-chunk-94-1.svg" alt="Ejemplo de histograma." width="672" />
+<p class="caption">
+Figura 3.3: Ejemplo de histograma.
+</p>
+</div>
+</div>
+<div id="test-estadísticos-básicos" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Test estadísticos básicos</h3>
+<p>Otra actividad que se suele realizar como parte del proceso de análisis estadístico de unos datos es enunciar hipótesis sobre esos datos y tratar de contrastar esas hipótesis por medio de test estadísticos. Este proceso de inferencia estadística también se puede realizar en R, como veremos en esta sección.</p>
+<div id="test-t" class="section level4" number="3.2.3.1">
+<h4><span class="header-section-number">3.2.3.1</span> Test t</h4>
+<p>Es uno de los más básicos y también de los más comúnmente utilizados. En R este test se implementa mediante la función t.test.</p>
+<p>A través de un test t podemos por ejemplo determinar si la media de una muestra empírica coincide o no con un valor indicado. Veamos un ejemplo:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="estadística-básica-con-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
+<span id="cb100-2"><a href="estadística-básica-con-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(datos, <span class="at">mu=</span><span class="dv">1</span>) </span>
+<span id="cb100-3"><a href="estadística-básica-con-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One Sample t-test </span></span>
+<span id="cb100-4"><a href="estadística-básica-con-r.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb100-5"><a href="estadística-básica-con-r.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data:  datos </span></span>
+<span id="cb100-6"><a href="estadística-básica-con-r.html#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="co"># t = 0.0613, df = 99, p-value = 0.9513 </span></span>
+<span id="cb100-7"><a href="estadística-básica-con-r.html#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative hypothesis: true mean is not equal to 1 </span></span>
+<span id="cb100-8"><a href="estadística-básica-con-r.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 95 percent confidence interval: </span></span>
+<span id="cb100-9"><a href="estadística-básica-con-r.html#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  0.7931953 1.2199846 </span></span>
+<span id="cb100-10"><a href="estadística-básica-con-r.html#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sample estimates: </span></span>
+<span id="cb100-11"><a href="estadística-básica-con-r.html#cb100-11" aria-hidden="true" tabindex="-1"></a><span class="co"># mean of x  </span></span>
+<span id="cb100-12"><a href="estadística-básica-con-r.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   1.00659 </span></span></code></pre></div>
+<p>Como se puede ver, hemos generado un vector de datos aleatorios (100 muestras) siguiendo una distribución normal N(1,1) y hemos aplicado el test t para determinar si la media (parámetro mu) es igual a 1. Obtenemos los siguientes resultados:</p>
+<ul>
+<li><p>La línea t = 0.0613, df = 99, p-value = 0.9513 nos indica el valor del estadístico t, los grados de libertad del test (df) y el p-valor obtenido.</p></li>
+<li><p>El intervalo de confianza del 95 % es 0.7931953, 1.2199846.</p></li>
+<li><p>La media estimada en la muestra es 1.00659.</p></li>
+</ul>
+<p>Por defecto el test se lleva a cabo con un nivel de confianza del 95 % (se puede cambiar con el parámetro conf.level de la función t.test). Así pues, a tenor de los resultados obtenidos (p&gt;0.05, el intervalo de confianza estimado para la media contiene el valor 1), no podemos rechazar la hipótesis de que la media es 1.</p>
+<p>También podemos utilizar un test t para comprobar si las medias de dos muestras independientes del mismo tamaño son iguales:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="estadística-básica-con-r.html#cb101-1" aria-hidden="true" tabindex="-1"></a>datos1<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
+<span id="cb101-2"><a href="estadística-básica-con-r.html#cb101-2" aria-hidden="true" tabindex="-1"></a>datos2<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
+<span id="cb101-3"><a href="estadística-básica-con-r.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(datos1, datos2, <span class="at">conf.level=</span><span class="fl">0.99</span>) </span>
+<span id="cb101-4"><a href="estadística-básica-con-r.html#cb101-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb101-5"><a href="estadística-básica-con-r.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   Welch Two Sample t-test </span></span>
+<span id="cb101-6"><a href="estadística-básica-con-r.html#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb101-7"><a href="estadística-básica-con-r.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="co"># data:  datos1 and datos2 </span></span>
+<span id="cb101-8"><a href="estadística-básica-con-r.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="co"># t = -7.4744, df = 197.978, p-value = 2.446e-12 </span></span>
+<span id="cb101-9"><a href="estadística-básica-con-r.html#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative hypothesis: true difference in means is not equal to 0 </span></span>
+<span id="cb101-10"><a href="estadística-básica-con-r.html#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 99 percent confidence interval: </span></span>
+<span id="cb101-11"><a href="estadística-básica-con-r.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  -1.5054492 -0.7281998 </span></span>
+<span id="cb101-12"><a href="estadística-básica-con-r.html#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sample estimates: </span></span>
+<span id="cb101-13"><a href="estadística-básica-con-r.html#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   mean of x   mean of y  </span></span>
+<span id="cb101-14"><a href="estadística-básica-con-r.html#cb101-14" aria-hidden="true" tabindex="-1"></a><span class="co"># -0.05670122  1.06012327 </span></span></code></pre></div>
+<p>Se puede ver que, en este caso, el p-valor obtenido es muy pequeño y el valor 0 queda fuera del intervalo de confianza estimado para la diferencia de medias, con lo que se rechazaría la hipótesis de que las medias son iguales.</p>
+</div>
+<div id="test-chi-cuadrado" class="section level4" number="3.2.3.2">
+<h4><span class="header-section-number">3.2.3.2</span> Test Chi-cuadrado</h4>
+<p>Este test se suele utilizar cuando queremos saber si dos variables son o no independientes. La hipótesis nula (las variables son independientes) se rechazaría si el p-valor obtenido para el test es menor que un valor alfa que depende del nivel de confianza que nosotros queramos (en particular, alfa = 1 – nivel de confianza).</p>
+<p>Por ejemplo, supongamos que tenemos el siguiente data frame que relaciona dos variables: las filas representan al tipo de fumador (M, muy frecuente; F, frecuente; O, ocasional; N, no fuma), las columnas al tipo de deportista (Frec, frecuente; Esp, esporádico) y los valores al número de personas de cada tipo:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="estadística-básica-con-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a>depFrec<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">87</span>,<span class="dv">12</span>,<span class="dv">9</span>) </span>
+<span id="cb102-2"><a href="estadística-básica-con-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a>depEsp<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">102</span>, <span class="dv">7</span>, <span class="dv">8</span>) </span>
+<span id="cb102-3"><a href="estadística-básica-con-r.html#cb102-3" aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">Frec=</span>depFrec, <span class="at">Esp=</span>depEsp) </span>
+<span id="cb102-4"><a href="estadística-básica-con-r.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tabla)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;N&quot;</span>,<span class="st">&quot;O&quot;</span>,<span class="st">&quot;F&quot;</span>) </span>
+<span id="cb102-5"><a href="estadística-básica-con-r.html#cb102-5" aria-hidden="true" tabindex="-1"></a>tabla </span>
+<span id="cb102-6"><a href="estadística-básica-con-r.html#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   Frec Esp </span></span>
+<span id="cb102-7"><a href="estadística-básica-con-r.html#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co"># M    7   4 </span></span>
+<span id="cb102-8"><a href="estadística-básica-con-r.html#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># N   87 102 </span></span>
+<span id="cb102-9"><a href="estadística-básica-con-r.html#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co"># O   12   7 </span></span>
+<span id="cb102-10"><a href="estadística-básica-con-r.html#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="co"># F    9   8 </span></span></code></pre></div>
+<p>Queremos saber si las variables «ser fumador» y «ser deportista» son o no independientes, para lo que llevaremos a cabo un test de Chi-cuadrado, que en R se implementa por medio de la función chisq.test:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="estadística-básica-con-r.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla) </span>
+<span id="cb103-2"><a href="estadística-básica-con-r.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   Pearson&#39;s Chi-squared test </span></span>
+<span id="cb103-3"><a href="estadística-básica-con-r.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb103-4"><a href="estadística-básica-con-r.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data:  tabla </span></span>
+<span id="cb103-5"><a href="estadística-básica-con-r.html#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="co"># X-squared = 3.2328, df = 3, p-value = 0.3571 </span></span></code></pre></div>
+<p>Como se puede ver, el p-valor es 0.3571 por lo que si nuestro nivel de confianza es del 95 % (y por tanto alfa = 1-0.95 = 0.05) no se cumple que el p-valor sea menor que alfa y, por tanto, no podemos rechazar la hipótesis nula de que las variables son independientes.</p>
+<p>Otro uso habitual del test de Chi-cuadrado es realizar contrastes de bondad de ajuste, en los que la hipótesis a contrastar es que los datos de una muestra se ajustan a un modelo estadístico dado.</p>
+<p>Por ejemplo, supongamos que tenemos un dado, y queremos saber si el dado ha sido manipulado o no. Podemos tirar un determinado número de veces el dado y obtener la frecuencia con la que se obtiene cada uno de los seis resultados, construyendo por ejemplo el siguiente data frame:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="estadística-básica-con-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a>dado </span>
+<span id="cb104-2"><a href="estadística-básica-con-r.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   Freq </span></span>
+<span id="cb104-3"><a href="estadística-básica-con-r.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1   20 </span></span>
+<span id="cb104-4"><a href="estadística-básica-con-r.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2   19 </span></span>
+<span id="cb104-5"><a href="estadística-básica-con-r.html#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3   20 </span></span>
+<span id="cb104-6"><a href="estadística-básica-con-r.html#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4   25 </span></span>
+<span id="cb104-7"><a href="estadística-básica-con-r.html#cb104-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5   20 </span></span>
+<span id="cb104-8"><a href="estadística-básica-con-r.html#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 6   46 </span></span></code></pre></div>
+<p>A continuación comprobaríamos si esa muestra se ajusta a un modelo en el que cada una de las seis alternativas es igualmente probable (como cabría esperar en un dado no manipulado) utilizando un test de Chi-cuadrado:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="estadística-básica-con-r.html#cb105-1" aria-hidden="true" tabindex="-1"></a>probs<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)<span class="sc">/</span><span class="dv">6</span> </span>
+<span id="cb105-2"><a href="estadística-básica-con-r.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(dado<span class="sc">$</span>Freq, <span class="at">p=</span>probs) </span>
+<span id="cb105-3"><a href="estadística-básica-con-r.html#cb105-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb105-4"><a href="estadística-básica-con-r.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   Chi-squared test for given probabilities </span></span>
+<span id="cb105-5"><a href="estadística-básica-con-r.html#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb105-6"><a href="estadística-básica-con-r.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="co"># data:  dado$Freq </span></span>
+<span id="cb105-7"><a href="estadística-básica-con-r.html#cb105-7" aria-hidden="true" tabindex="-1"></a><span class="co"># X-squared = 22.08, df = 5, p-value = 0.0005056 </span></span></code></pre></div>
+<p>Como se puede ver, en este caso el p-valor es muy pequeño con lo que rechazamos la hipótesis de que los datos se ajustan al modelo considerado (y podríamos sospechar que el dado ha sido efectivamente manipulado).</p>
+<p>Nótese que la función chisq.test lleva a cabo una u otra tarea dependiendo de los parámetros que recibe como entrada (en función de si los datos representan una tabla bidimensional -test de independencia- o un vector unidimensional -bondad de ajuste-).</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="manipulación-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introducción-a-la-minería-de-datos-con-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["github", "linkedin", "weibo", "instapaper", "vk", "whatsapp"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rubend18/manual-de-r/edit/master/03-analisis1.Rmd",
+"text": "Edit "
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/rubend18/manual-de-r/blob/master/03-analisis1.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

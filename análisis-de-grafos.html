@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.2 Análisis de grafos | Manual de R</title>
+  <meta name="description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.2 Análisis de grafos | Manual de R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/img/cover.jpg" />
+  <meta property="og:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="github-repo" content="rubend18/manual-de-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.2 Análisis de grafos | Manual de R" />
+  
+  <meta name="twitter:description" content="El objetivo de este manual es introducir en el conocimiento del Lenguaje R. Podemos considerar a R como un entorno software, pero también como un lenguaje de programación. Se analiza con detalle los mecanismos y funciones que el lenguaje proporciona para la manipulación y análisis de datos. Se revisan los mecanismos para representar visualmente los datos a través de funciones como plot, hist o boxplot." />
+  <meta name="twitter:image" content="/img/cover.jpg" />
+
+<meta name="author" content="Rubén Darío Jaramillo (rubend18@hotmail.com)" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="minería-de-texto.html"/>
+<link rel="next" href="gráficos-y-visualización-de-datos.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Manual de R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path="compilación.html"><a href="compilación.html"><i class="fa fa-check"></i>Compilación</a></li>
+<li class="chapter" data-level="1" data-path="introducción-a-r.html"><a href="introducción-a-r.html"><i class="fa fa-check"></i><b>1</b> Introducción a R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="qué-es-r.html"><a href="qué-es-r.html"><i class="fa fa-check"></i><b>1.1</b> ¿Qué es R?</a></li>
+<li class="chapter" data-level="1.2" data-path="orígenes-y-antecedentes.html"><a href="orígenes-y-antecedentes.html"><i class="fa fa-check"></i><b>1.2</b> Orígenes y antecedentes</a></li>
+<li class="chapter" data-level="1.3" data-path="por-qué-r.html"><a href="por-qué-r.html"><i class="fa fa-check"></i><b>1.3</b> ¿Por qué R?</a></li>
+<li class="chapter" data-level="1.4" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html"><i class="fa fa-check"></i><b>1.4</b> Instalación del entorno de R</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-windows-y-mac-os-x"><i class="fa fa-check"></i><b>1.4.1</b> Instalación en Windows y Mac OS X</a></li>
+<li class="chapter" data-level="1.4.2" data-path="instalación-del-entorno-de-r.html"><a href="instalación-del-entorno-de-r.html#instalación-en-linux"><i class="fa fa-check"></i><b>1.4.2</b> Instalación en Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html"><i class="fa fa-check"></i><b>1.5</b> Primeros pasos con R</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#realizando-operaciones-basicas"><i class="fa fa-check"></i><b>1.5.1</b> Realizando operaciones basicas</a></li>
+<li class="chapter" data-level="1.5.2" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#llamando-a-funciones"><i class="fa fa-check"></i><b>1.5.2</b> Llamando a funciones</a></li>
+<li class="chapter" data-level="1.5.3" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#accediendo-a-la-ayuda-de-r"><i class="fa fa-check"></i><b>1.5.3</b> Accediendo a la ayuda de R</a></li>
+<li class="chapter" data-level="1.5.4" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#trabajando-con-variables"><i class="fa fa-check"></i><b>1.5.4</b> Trabajando con variables</a></li>
+<li class="chapter" data-level="1.5.5" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.5.5</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.5.6" data-path="primeros-pasos-con-r.html"><a href="primeros-pasos-con-r.html#ejecutando-expresiones-desde-un-fichero-de-texto"><i class="fa fa-check"></i><b>1.5.6</b> Ejecutando expresiones desde un fichero de texto</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><a href="consejos-prácticos-sobre-el-uso-de-la-consola-de-r.html"><i class="fa fa-check"></i><b>1.6</b> Consejos prácticos sobre el uso de la consola de R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="el-lenguaje-r.html"><a href="el-lenguaje-r.html"><i class="fa fa-check"></i><b>2</b> El lenguaje R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="características-básicas-del-lenguaje-r.html"><a href="características-básicas-del-lenguaje-r.html"><i class="fa fa-check"></i><b>2.1</b> Características básicas del lenguaje R</a></li>
+<li class="chapter" data-level="2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html"><i class="fa fa-check"></i><b>2.2</b> Tipos de datos y operadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#tipos-básicos-de-datos"><i class="fa fa-check"></i><b>2.2.1</b> Tipos básicos de datos</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tipos-de-datos-y-operadores.html"><a href="tipos-de-datos-y-operadores.html#operadores"><i class="fa fa-check"></i><b>2.2.2</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html"><i class="fa fa-check"></i><b>2.3</b> Estructura de datos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#vectores"><i class="fa fa-check"></i><b>2.3.1</b> Vectores</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#matrices-y-arrays"><i class="fa fa-check"></i><b>2.3.2</b> Matrices y arrays</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#listas"><i class="fa fa-check"></i><b>2.3.3</b> Listas</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#factores-factors"><i class="fa fa-check"></i><b>2.3.4</b> Factores (factors)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="estructura-de-datos.html"><a href="estructura-de-datos.html#tablas-data-frames"><i class="fa fa-check"></i><b>2.3.5</b> Tablas (data frames)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html"><i class="fa fa-check"></i><b>2.4</b> Estructuras de control</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#condicionales"><i class="fa fa-check"></i><b>2.4.1</b> Condicionales</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estructuras-de-control.html"><a href="estructuras-de-control.html#bucles"><i class="fa fa-check"></i><b>2.4.2</b> Bucles</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="funciones.html"><a href="funciones.html"><i class="fa fa-check"></i><b>2.5</b> Funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-datos-con-r-i.html"><a href="análisis-de-datos-con-r-i.html"><i class="fa fa-check"></i><b>3</b> Análisis de datos con R (I)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Manipulación de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#tratamiento-de-valores-desconocidos"><i class="fa fa-check"></i><b>3.1.1</b> Tratamiento de valores desconocidos</a></li>
+<li class="chapter" data-level="3.1.2" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#conversión-de-tipos"><i class="fa fa-check"></i><b>3.1.2</b> Conversión de tipos</a></li>
+<li class="chapter" data-level="3.1.3" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#ordenación-de-datos"><i class="fa fa-check"></i><b>3.1.3</b> Ordenación de datos</a></li>
+<li class="chapter" data-level="3.1.4" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#búsqueda-de-datos"><i class="fa fa-check"></i><b>3.1.4</b> Búsqueda de datos</a></li>
+<li class="chapter" data-level="3.1.5" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#manipulación-de-cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.1.5</b> Manipulación de cadenas de caracteres</a></li>
+<li class="chapter" data-level="3.1.6" data-path="manipulación-de-datos.html"><a href="manipulación-de-datos.html#importarexportar-datos-desdea-fichero"><i class="fa fa-check"></i><b>3.1.6</b> Importar/exportar datos desde/a fichero</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html"><i class="fa fa-check"></i><b>3.2</b> Estadística básica con R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#distribuciones-estadísticas"><i class="fa fa-check"></i><b>3.2.1</b> Distribuciones estadísticas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2.2</b> Estadística descriptiva</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estadística-básica-con-r.html"><a href="estadística-básica-con-r.html#test-estadísticos-básicos"><i class="fa fa-check"></i><b>3.2.3</b> Test estadísticos básicos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html"><i class="fa fa-check"></i><b>3.3</b> Introducción a la minería de datos con R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#análisis-de-correlación"><i class="fa fa-check"></i><b>3.3.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#regresión"><i class="fa fa-check"></i><b>3.3.2</b> Regresión</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#clasificación"><i class="fa fa-check"></i><b>3.3.3</b> Clasificación</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introducción-a-la-minería-de-datos-con-r.html"><a href="introducción-a-la-minería-de-datos-con-r.html#agrupamiento-clustering"><i class="fa fa-check"></i><b>3.3.4</b> Agrupamiento (clustering)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-datos-con-r-ii.html"><a href="análisis-de-datos-con-r-ii.html"><i class="fa fa-check"></i><b>4</b> Análisis de datos con R (II)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html"><i class="fa fa-check"></i><b>4.1</b> Minería de texto</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="minería-de-texto.html"><a href="minería-de-texto.html#introducción"><i class="fa fa-check"></i><b>4.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1.2" data-path="minería-de-texto.html"><a href="minería-de-texto.html#minería-de-texto-con-tm"><i class="fa fa-check"></i><b>4.1.2</b> Minería de texto con tm</a></li>
+<li class="chapter" data-level="4.1.3" data-path="minería-de-texto.html"><a href="minería-de-texto.html#encontrar-términos-frecuentes"><i class="fa fa-check"></i><b>4.1.3</b> Encontrar términos frecuentes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="minería-de-texto.html"><a href="minería-de-texto.html#clasificación-1"><i class="fa fa-check"></i><b>4.1.4</b> Clasificación</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html"><i class="fa fa-check"></i><b>4.2</b> Análisis de grafos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#introducción-1"><i class="fa fa-check"></i><b>4.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#primeros-pasos-con-igraph"><i class="fa fa-check"></i><b>4.2.2</b> Primeros pasos con igraph</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#importandoexportando-grafos-desdea-fichero"><i class="fa fa-check"></i><b>4.2.3</b> Importando/exportando grafos desde/a fichero</a></li>
+<li class="chapter" data-level="4.2.4" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#análisis-de-grafos-con-igraph"><i class="fa fa-check"></i><b>4.2.4</b> Análisis de grafos con igraph</a></li>
+<li class="chapter" data-level="4.2.5" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#información-básica-de-grafos"><i class="fa fa-check"></i><b>4.2.5</b> Información básica de grafos</a></li>
+<li class="chapter" data-level="4.2.6" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#medidas-de-centralidad"><i class="fa fa-check"></i><b>4.2.6</b> Medidas de centralidad</a></li>
+<li class="chapter" data-level="4.2.7" data-path="análisis-de-grafos.html"><a href="análisis-de-grafos.html#camino-más-corto"><i class="fa fa-check"></i><b>4.2.7</b> Camino más corto</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="gráficos-y-visualización-de-datos.html"><a href="gráficos-y-visualización-de-datos.html"><i class="fa fa-check"></i><b>5</b> Gráficos y visualización de datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creando-gráficos-básicos-con-r.html"><a href="creando-gráficos-básicos-con-r.html"><i class="fa fa-check"></i><b>5.1</b> Creando gráficos básicos con R</a></li>
+<li class="chapter" data-level="5.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html"><i class="fa fa-check"></i><b>5.2</b> Personalización de gráficos</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#símbolos-y-líneas"><i class="fa fa-check"></i><b>5.2.1</b> Símbolos y líneas</a></li>
+<li class="chapter" data-level="5.2.2" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#colores"><i class="fa fa-check"></i><b>5.2.2</b> Colores</a></li>
+<li class="chapter" data-level="5.2.3" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#límites-de-los-ejes"><i class="fa fa-check"></i><b>5.2.3</b> Límites de los ejes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#leyendas-y-texto"><i class="fa fa-check"></i><b>5.2.4</b> Leyendas y texto</a></li>
+<li class="chapter" data-level="5.2.5" data-path="personalización-de-gráficos.html"><a href="personalización-de-gráficos.html#añadiendo-una-rejilla"><i class="fa fa-check"></i><b>5.2.5</b> Añadiendo una rejilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="combinando-gráficos.html"><a href="combinando-gráficos.html"><i class="fa fa-check"></i><b>5.3</b> Combinando gráficos</a></li>
+<li class="chapter" data-level="5.4" data-path="exportando-gráficos-a-fichero.html"><a href="exportando-gráficos-a-fichero.html"><i class="fa fa-check"></i><b>5.4</b> Exportando gráficos a fichero</a></li>
+<li class="chapter" data-level="5.5" data-path="interacción-básica-con-gráficos.html"><a href="interacción-básica-con-gráficos.html"><i class="fa fa-check"></i><b>5.5</b> Interacción básica con gráficos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="información-extra.html"><a href="información-extra.html"><i class="fa fa-check"></i>Información extra</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Manual de R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-de-grafos" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Análisis de grafos</h2>
+<div id="introducción-1" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Introducción</h3>
+<blockquote>
+<p>En su forma más sencilla, un grafo (o red) se puede representar como una colección de puntos (denominados nodos o vértices) conectados por medio de líneas (denominadas enlaces o arcos).</p>
+</blockquote>
+<p>El interés por el análisis de grafos surge del hecho de que existen multitud de problemas en distintas áreas (física, biología, ciencias sociales, ciencias de la computación, etc.) que se pueden modelar matemáticamente por medio de grafos. Algunos ejemplos de grafos que aparecen en nuestra vida cotidiana incluyen:</p>
+<ul>
+<li><p>Internet (nodos - computadores; arcos - líneas de comunicación).</p></li>
+<li><p>La web (nodos - páginas web; arcos - hiperenlaces).</p></li>
+<li><p>Las redes sociales (nodos - personas; enlaces - relaciones entre ellas).</p></li>
+<li><p>La red de carreteras (nodos - ciudades; arcos - vías que las conectan).</p></li>
+<li><p>La red de metro (nodos - estaciones; arcos - vías que las conectan).</p></li>
+</ul>
+<p>Dadas las múltiples aplicaciones de los grafos como modelo matemático, disponer de técnicas y herramientas que permitan analizar estos grafos resulta de gran utilidad. Por ejemplo, podríamos estar interesados en analizar los grafos presentados anteriormente para aplicaciones tales como:</p>
+<ul>
+<li><p>Encontrar enlaces sensibles en la red de computadores, que en caso de caídas provoquen la desconexión de múltiples equipos.</p></li>
+<li><p>Hacer un ranking de páginas web para seleccionar las más relevantes (por ejemplo, las más enlazadas desde otras).</p></li>
+<li><p>Entender cómo se podría propagar una enfermedad analizando la estructura de contactos de una red social.</p></li>
+<li><p>Encontrar la ruta más corta entre dos ciudades en la red de carreteras o entre dos estaciones en la red de metro.</p></li>
+</ul>
+<p>El objetivo de este apartado es aprender a crear, manipular y analizar grafos utilizando R. Para ello nos apoyaremos en el paquete igraph, un proyecto de código libre al que han contribuido múltiples desarrolladores, entre los que destaca Gábor Csárdi, que actualmente trabaja en el Departamento de Estadística de la Universidad de Harvard.</p>
+<p>Comenzaremos por instalar el paquete, siguiendo el procedimiento habitual:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="análisis-de-grafos.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="at">dependencies=</span>T) </span></code></pre></div>
+<p>Una vez instalado el paquete, cargaremos la librería en el entorno de R, ejecutando:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="análisis-de-grafos.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) </span></code></pre></div>
+<p>Hecho esto, estamos en condiciones de poder empezar a usar las funcionalidades ofrecidas por igraph.</p>
+</div>
+<div id="primeros-pasos-con-igraph" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Primeros pasos con igraph</h3>
+<p>El primer paso para trabajar con esta librería suele ser definir el grafo sobre el que vamos a operar. El modelo de datos de igraph da soporte a dos tipos fundamentales de grafos:</p>
+<p><strong>Grafos dirigidos:</strong> Son aquellos en los que los arcos que unen dos vértices tienen un solo sentido. Un ejemplo de grafo dirigido serían los enlaces en la web, que nos llevan en una sola dirección, de la página de origen a la de destino del enlace.</p>
+<p><strong>Grafos no dirigidos:</strong> Son aquellos en los que los arcos que unen dos vértices no tienen un único sentido y se pueden recorrer en ambos. Un ejemplo serían las redes de comunicaciones, que son usualmente bidireccionales (la información puede fluir en los dos sentidos).</p>
+<p>La forma más sencilla de crear un grafo, es llamando a la función graph y proporcionando directamente desde el terminal la lista de arcos que constituyen el grafo. Por ejemplo, ejecutando en la consola la expresión:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="análisis-de-grafos.html#cb155-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph</span>( <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">2</span>,<span class="dv">3</span>, <span class="dv">1</span>,<span class="dv">3</span>, <span class="dv">1</span>,<span class="dv">4</span>, <span class="dv">4</span>,<span class="dv">4</span>) ) </span></code></pre></div>
+<p>Estaríamos creando un grafo con cuatro vértices V={1,2,3,4} y cinco arcos E={(1,2),(2,3),(1,3),(1,4),(4,4)}. Internamente igraph utiliza identificadores enteros y secuenciales para referirse a los vértices (en el caso de R, el primer identificador debe ser el 1). Por eso, a la hora de crear el grafo, nosotros hemos seguido este convenio. Nótese que en la expresión anterior se han introducido espacios en blanco para que se vean los pares que constituyen cada arco. Obviamente estos espacios no son obligatorios.</p>
+<p>Una vez el grafo ha sido construido, podemos obtener un listado de los vértices y arcos que lo constituyen utilizando las funciones V (para vértices -vertex-) y E (para arcos - edges-):</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="análisis-de-grafos.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g) </span>
+<span id="cb156-2"><a href="análisis-de-grafos.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="co"># + 4/4 vertices: </span></span>
+<span id="cb156-3"><a href="análisis-de-grafos.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 2 3 4 </span></span>
+<span id="cb156-4"><a href="análisis-de-grafos.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g) </span>
+<span id="cb156-5"><a href="análisis-de-grafos.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="co"># + 5/5 edges: </span></span>
+<span id="cb156-6"><a href="análisis-de-grafos.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1-&gt;2 2-&gt;3 1-&gt;3 1-&gt;4 4-&gt;4 </span></span></code></pre></div>
+<p>Puede verse que el grafo resultante es un grafo dirigido (indicado con -&gt; en los arcos). Este es el comportamiento por defecto de la función graph. Podríamos especificar que el grafo fuese no dirigido mediante el parámetro directed:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="análisis-de-grafos.html#cb157-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph</span>( <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>), <span class="at">directed=</span><span class="cn">FALSE</span>) </span>
+<span id="cb157-2"><a href="análisis-de-grafos.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g) </span>
+<span id="cb157-3"><a href="análisis-de-grafos.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co"># + 5/5 edges: </span></span>
+<span id="cb157-4"><a href="análisis-de-grafos.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1--2 2--3 1--3 1--4 4--4 </span></span></code></pre></div>
+<p>También es posible añadir atributos a los vértices y arcos de un grafo. Estos atributos tienen múltiples aplicaciones, por ejemplo, a la hora de representar el grafo. Los atributos más comúnmente utilizados son:</p>
+<ul>
+<li><p>El atributo name: permite añadir etiquetas textuales a los vértices y arcos, para facilitar su interpretación.</p></li>
+<li><p>El atributo weight que se utiliza para asignar pesos numéricos a los vértices y a los arcos. Esto es útil por ejemplo para poder representar grafos ponderados (weighted graphs) en los que a los arcos se etiquetan con un peso (usualmente un número real). Este peso sirve, por ejemplo, para representar el coste de recorrer un enlace (p.ej.: la distancia en kilómetros al modelar carreteras) o su capacidad (útil por ejemplo al modelar redes de comunicaciones).</p></li>
+<li><p>El atributo color que permite especificar el color con el que se representarán gráficamente vértices y arcos.</p></li>
+</ul>
+<p>Podemos ver a continuación un ejemplo de uso de estos atributos:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="análisis-de-grafos.html#cb158-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph</span>( <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>)) </span>
+<span id="cb158-2"><a href="análisis-de-grafos.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>name<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;Ana&quot;</span>,<span class="st">&quot;Berto&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;David&quot;</span>) </span>
+<span id="cb158-3"><a href="análisis-de-grafos.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>weight<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">4.0</span>,<span class="fl">6.2</span>,<span class="fl">7.1</span>,<span class="fl">3.1</span>) </span>
+<span id="cb158-4"><a href="análisis-de-grafos.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;green&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;yellow&quot;</span>) </span>
+<span id="cb158-5"><a href="análisis-de-grafos.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g)<span class="sc">$</span>weight<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">0.2</span>, <span class="fl">2.3</span>, <span class="fl">6.1</span>, <span class="fl">0.4</span>) </span>
+<span id="cb158-6"><a href="análisis-de-grafos.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g)<span class="sc">$</span>name<span class="ot">&lt;-</span><span class="fu">E</span>(g)<span class="sc">$</span>weight </span>
+<span id="cb158-7"><a href="análisis-de-grafos.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g)<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>,<span class="dv">5</span>) </span>
+<span id="cb158-8"><a href="análisis-de-grafos.html#cb158-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">edge.width=</span><span class="fu">E</span>(g)<span class="sc">$</span>weight, <span class="at">edge.label=</span><span class="fu">E</span>(g)<span class="sc">$</span>name,</span>
+<span id="cb158-9"><a href="análisis-de-grafos.html#cb158-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size=</span><span class="fu">V</span>(g)<span class="sc">$</span>weight<span class="sc">*</span><span class="dv">10</span>, <span class="at">vertex.label=</span><span class="fu">V</span>(g)<span class="sc">$</span>name) </span></code></pre></div>
+<p>Donde se puede ver el uso de la función plot a la hora de representar gráficamente el grafo, obteniéndose el resultado mostrado en la siguiente Figura.</p>
+<p><img src="img/fig11.jpg" /></p>
+<p>Figura 2. Representación gráfica de un grafo.</p>
+<p>Nótese que en la llamada a plot hemos configurado el tamaño de los vértices (vertex.size) el ancho de los arcos (edge.width), las etiquetas de los vértices (vertex.label) y las etiquetas de los arcos (edge.label).</p>
+<blockquote>
+<p>Información más detallada sobre la presentación de grafos con igraph puede obtenerse a través de la ayuda de R ejecutando la expresión:</p>
+</blockquote>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="análisis-de-grafos.html#cb159-1" aria-hidden="true" tabindex="-1"></a>?igraph.plotting</span></code></pre></div>
+</div>
+<div id="importandoexportando-grafos-desdea-fichero" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Importando/exportando grafos desde/a fichero</h3>
+<p>Crear un grafo directamente a través de la consola de R, como hemos hecho en todos los ejemplos anteriores, es un mecanismo efectivo cuando trabajamos con grafos pequeños.</p>
+<p>Sin embargo, cuando el número de vértices y arcos en el grafo es elevado, resulta más habitual que tengamos la información en un fichero y que carguemos los datos del mismo utilizando la función read.graph de igraph. Esta función permite importar datos desde ficheros de distintos formatos, dos de los más utilizados debido a su sencillez son:</p>
+<ul>
+<li>Lista de arcos (edge list). Básicamente se trata de un fichero de texto en el que cada línea representa un arco del grafo, descrito por medio de dos identificadores numéricos separados por un espacio en blanco o tabulador. Por ejemplo, si tenemos un fichero /Users/user/grafo.elist.</li>
+</ul>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="análisis-de-grafos.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>       <span class="dv">1</span> </span>
+<span id="cb160-2"><a href="análisis-de-grafos.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>       <span class="dv">2</span> </span>
+<span id="cb160-3"><a href="análisis-de-grafos.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="dv">2</span> </span>
+<span id="cb160-4"><a href="análisis-de-grafos.html#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>       <span class="dv">3</span> </span>
+<span id="cb160-5"><a href="análisis-de-grafos.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="dv">3</span> </span></code></pre></div>
+<p>Podemos crear un grafo a partir de él con ejecutando la expresión:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="análisis-de-grafos.html#cb161-1" aria-hidden="true" tabindex="-1"></a>g2<span class="ot">&lt;-</span><span class="fu">read.graph</span>(<span class="st">&quot;/Users/user/grafo.elist&quot;</span>, <span class="at">format=</span><span class="st">&quot;edgelist&quot;</span>, </span>
+<span id="cb161-2"><a href="análisis-de-grafos.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="at">directed=</span>T) </span></code></pre></div>
+<p>Un pequeño aspecto a considerar cuando trabajamos con este tipo de ficheros es que en este caso igraph espera que el primer identificador de vértice en el fichero sea un 0 y añadirá automáticamente un 1 a todos los identificadores, para cumplir con la restricción de que el primero sea el 1.</p>
+<ul>
+<li>LGL ncol. De nuevo consiste en un fichero de texto en el que cada línea representa un arco, con dos etiquetas textuales separadas por espacio en blanco y un tercer elemento opcional que representa el peso asociado al arco. Las etiquetas textuales se cargarán en el atributo name de los vértices, mientras que el valor de la última columna se incluirá en el atributo weight de los arcos y la librería asignará automáticamente un identificador entero a cada vértice. Por ejemplo, si tenemos un fichero /Users/user/grafo.ncol</li>
+</ul>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="análisis-de-grafos.html#cb162-1" aria-hidden="true" tabindex="-1"></a>Ana     Berto   <span class="sc">-</span><span class="fl">0.3</span> </span>
+<span id="cb162-2"><a href="análisis-de-grafos.html#cb162-2" aria-hidden="true" tabindex="-1"></a>Ana     Carlos  <span class="fl">2.4</span> </span>
+<span id="cb162-3"><a href="análisis-de-grafos.html#cb162-3" aria-hidden="true" tabindex="-1"></a>Berto   Carlos  <span class="fl">9.2</span> </span>
+<span id="cb162-4"><a href="análisis-de-grafos.html#cb162-4" aria-hidden="true" tabindex="-1"></a>Ana     David   <span class="sc">-</span><span class="fl">2.45</span> </span>
+<span id="cb162-5"><a href="análisis-de-grafos.html#cb162-5" aria-hidden="true" tabindex="-1"></a>David   David </span></code></pre></div>
+<p>Podemos crear un grafo a partir de él con ejecutando la expresión:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="análisis-de-grafos.html#cb163-1" aria-hidden="true" tabindex="-1"></a>g3<span class="ot">&lt;-</span><span class="fu">read.graph</span>(<span class="st">&quot;/Users/user/grafo.ncol&quot;</span>, <span class="at">format=</span><span class="st">&quot;ncol&quot;</span>, <span class="at">directed=</span>T) </span></code></pre></div>
+<p>Además de importar grafos desde fichero, también es posible exportarlos, utilizando la función write.graph a la que hay que indicarle el grafo a almacenar, la ruta del fichero destino y el formato en el que se desea representar el fichero. Por ejemplo:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="análisis-de-grafos.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.graph</span>(g2, <span class="st">&quot;/Users/user/output.ncol&quot;</span>, <span class="at">format=</span><span class="st">&quot;ncol&quot;</span>) </span></code></pre></div>
+</div>
+<div id="análisis-de-grafos-con-igraph" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Análisis de grafos con igraph</h3>
+<p>Tras haber introducido las funcionalidades básicas ofrecidas por el paquete igraph, veremos a continuación cómo llevar a cabo algunas tareas de análisis de grafos de uso común. Para ello, trabajaremos con el grafo que representa la estructura de las líneas de metro de Madrid.</p>
+<p>Descarga a través del aula virtual el fichero con los datos del grafo para realizar el ejemplo:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="análisis-de-grafos.html#cb165-1" aria-hidden="true" tabindex="-1"></a>metro.ncol</span></code></pre></div>
+<p>Si editáis el fichero, veréis que utiliza el formato LGL ncol, que tratamos con anterioridad, así que simplemente podéis cargarlo en vuestro entorno de R haciendo (reemplazando adecuadamente /path/to/ por la ruta en vuestro sistema):</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="análisis-de-grafos.html#cb166-1" aria-hidden="true" tabindex="-1"></a>metro<span class="ot">&lt;-</span><span class="fu">read.graph</span>(<span class="st">&quot;/path/to/metro.ncol&quot;</span>,</span>
+<span id="cb166-2"><a href="análisis-de-grafos.html#cb166-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">format=</span><span class="st">&quot;ncol&quot;</span>,</span>
+<span id="cb166-3"><a href="análisis-de-grafos.html#cb166-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">directed=</span><span class="cn">FALSE</span>) </span></code></pre></div>
+</div>
+<div id="información-básica-de-grafos" class="section level3" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Información básica de grafos</h3>
+<p>Veremos a continuación una serie de ejemplos que muestran algunas de las funciones más utilizadas a la hora de obtener información básica sobre la estructura de un grafo. Más información sobre cada una de estas funciones individuales se puede obtener a través de la ayuda de R.</p>
+<ul>
+<li>Obtener el tamaño de un grafo (número de vértices y arcos):</li>
+</ul>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="análisis-de-grafos.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">V</span>(metro)) </span>
+<span id="cb167-2"><a href="análisis-de-grafos.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 275 </span></span>
+<span id="cb167-3"><a href="análisis-de-grafos.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">E</span>(metro)) </span>
+<span id="cb167-4"><a href="análisis-de-grafos.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 314 </span></span></code></pre></div>
+<ul>
+<li>Saber si el grafo es conexo (existe al menos una ruta entre cualquiera dos nodos) o no:</li>
+</ul>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="análisis-de-grafos.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_connected</span>(metro) </span>
+<span id="cb168-2"><a href="análisis-de-grafos.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] TRUE </span></span></code></pre></div>
+<ul>
+<li>Listar los vecinos de un vértice dado (por ejemplo, la parada de Plaza de España) y obtener sus nombres:</li>
+</ul>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="análisis-de-grafos.html#cb169-1" aria-hidden="true" tabindex="-1"></a>vecinos<span class="ot">&lt;-</span><span class="fu">neighbors</span>(metro, <span class="st">&quot;Plaza_de_España&quot;</span>) </span>
+<span id="cb169-2"><a href="análisis-de-grafos.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(metro)[vecinos]<span class="sc">$</span>name </span>
+<span id="cb169-3"><a href="análisis-de-grafos.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;Tribunal&quot;   &quot;Callao&quot;   &quot;Ventura_Rodríguez&quot;   &quot;Príncipe_Pío&quot;  </span></span></code></pre></div>
+<ul>
+<li>Obtener el diámetro del grafo (distancia máxima entre dos de sus vértices):</li>
+</ul>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="análisis-de-grafos.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diameter</span>(metro) </span>
+<span id="cb170-2"><a href="análisis-de-grafos.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 44 </span></span></code></pre></div>
+<ul>
+<li>Medir la longitud media de las rutas que conectan los nodos dos a dos:</li>
+</ul>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="análisis-de-grafos.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_distance</span>(metro) </span>
+<span id="cb171-2"><a href="análisis-de-grafos.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 15.61186 </span></span></code></pre></div>
+<p>Consultar la densidad del grafo, que mide la relación entre el número de arcos que existen y el número total de los que podrían existir si todos los nodos estuviesen directamente conectados dos a dos:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="análisis-de-grafos.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">edge_density</span>(metro) </span>
+<span id="cb172-2"><a href="análisis-de-grafos.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 0.008334439 </span></span></code></pre></div>
+<p>Nótese que el grafo de ejemplo que nosotros estamos utilizando es un grafo no dirigido. Cuando el grafo es dirigido, puede ser necesario indicarles a algunas de las funciones anteriores (como por ejemplo a neighbors) con qué enlaces queremos operar.</p>
+<p>Es por eso por lo que un parámetro común en muchas de las funciones de igraph es el parámetro mode, que puede tomar tres valores:</p>
+<ul>
+<li><p><strong>all</strong>: Si queremos que se tengan en cuenta todos los arcos</p></li>
+<li><p><strong>in</strong>: Para considerar solo los incidentes en el nodo</p></li>
+<li><p><strong>out</strong>: Para los que salen del nodo.</p></li>
+</ul>
+</div>
+<div id="medidas-de-centralidad" class="section level3" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Medidas de centralidad</h3>
+<p>Las medidas de centralidad son un indicador de la importancia relativa de un nodo dentro de un grafo en base a la posición que este nodo ocupa dentro de la red. Normalmente, cuanto mayor sea la centralidad del nodo, más importante será este.</p>
+<p>Existen cuatro métricas que se utilizan muy habitualmente a la hora de estimar la centralidad de los vértices de un grafo:</p>
+<ul>
+<li><strong>Cercanía (closeness)</strong>: dado un vértice, se calcula la distancia más corta desde ese vértice a todos los otros nodos de la red. A continuación se obtiene la media de esas distancias. La inversa de esa media es la cercanía. Por tanto, cuanto más pequeño es ese valor más alejado de otros nodos está el vértice y menor es su importancia. La cercanía se calcula en R con:</li>
+</ul>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="análisis-de-grafos.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">closeness</span>(metro, <span class="st">&quot;Plaza_de_España&quot;</span>) </span>
+<span id="cb173-2"><a href="análisis-de-grafos.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plaza_de_España  </span></span>
+<span id="cb173-3"><a href="análisis-de-grafos.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    0.0003706449 </span></span></code></pre></div>
+<ul>
+<li><strong>Intermediación (betweenness)</strong>: su objetivo es estimar cuántas veces un vértice aparece en el camino más corto que une otros dos vértices cualesquiera del grafo. Por tanto, cuanto mayor sea el betweenness, más importante será el nodo, puesto que más caminos pasarán a través de él. En igraph la intermediación de un nodo se calcula como:</li>
+</ul>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="análisis-de-grafos.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">betweenness</span>(metro, <span class="st">&quot;Plaza_de_España&quot;</span>) </span>
+<span id="cb174-2"><a href="análisis-de-grafos.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plaza_de_España  </span></span>
+<span id="cb174-3"><a href="análisis-de-grafos.html#cb174-3" aria-hidden="true" tabindex="-1"></a><span class="co">#        12054.46  </span></span></code></pre></div>
+<ul>
+<li><strong>Centralidad de grado (degree centrality)</strong>: consiste simplemente en medir cuántos enlaces posee un nodo. Cuanto mayor sea este número, mejor conectado (y por tanto más importante) será el vértice.</li>
+</ul>
+<p>En igraph el grado de los nodos de un grafo se puede obtener con:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="análisis-de-grafos.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">degree</span>(metro, <span class="st">&quot;Plaza_de_España&quot;</span>) </span>
+<span id="cb175-2"><a href="análisis-de-grafos.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plaza_de_España  </span></span>
+<span id="cb175-3"><a href="análisis-de-grafos.html#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="co">#               4  </span></span></code></pre></div>
+<ul>
+<li><strong>PageRank</strong>: al igual que la centralidad de grado, tiene en cuenta el número de enlaces de un vértice, pero a diferencia de esta, no considera igualmente relevantes a todos los enlaces, sino que da más importancia a los enlaces con nodos que a su vez están bien conectados. Cuanto mayor es el valor de PageRank de un nodo, más relevante es. Se calcula en igraph con:</li>
+</ul>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="análisis-de-grafos.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">page_rank</span>(metro, <span class="at">vid=</span><span class="st">&quot;Plaza_de_España&quot;</span>)<span class="sc">$</span>vector </span>
+<span id="cb176-2"><a href="análisis-de-grafos.html#cb176-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plaza_de_España  </span></span>
+<span id="cb176-3"><a href="análisis-de-grafos.html#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     0.004631253  </span></span></code></pre></div>
+</div>
+<div id="camino-más-corto" class="section level3" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> Camino más corto</h3>
+<p>Un problema que surge habitualmente al analizar grafos es encontrar el camino de menor coste entre dos nodos. Para resolver este problema, el paquete igraph implementa la función shortest_paths.</p>
+<p>Por defecto, shortest_paths utiliza el valor del atributo weight de cada arco para determinar su coste. Cuando un grafo no tiene atributo weight se toma como coste de un camino su número de saltos, con lo que esta función se puede utilizar también para calcular el camino más corto.</p>
+<p>Por ejemplo, podemos encontrar la ruta más corta entre las estaciones de Callao y Batán ejecutando en la consola de R:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="análisis-de-grafos.html#cb177-1" aria-hidden="true" tabindex="-1"></a>path<span class="ot">&lt;-</span><span class="fu">unlist</span>(<span class="fu">shortest_paths</span>(metro, <span class="at">from=</span><span class="st">&quot;Callao&quot;</span>, <span class="at">to=</span><span class="st">&quot;Batán&quot;</span>)<span class="sc">$</span>vpath) </span>
+<span id="cb177-2"><a href="análisis-de-grafos.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(metro)[path]<span class="sc">$</span>name </span>
+<span id="cb177-3"><a href="análisis-de-grafos.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;Callao&quot;   &quot;Plaza_de_España&quot;   &quot;Príncipe_Pío&quot;   &quot;Lago&quot;   &quot;Batán&quot; </span></span>
+<span id="cb177-4"><a href="análisis-de-grafos.html#cb177-4" aria-hidden="true" tabindex="-1"></a><span class="co"># datos. </span></span></code></pre></div>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="minería-de-texto.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gráficos-y-visualización-de-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["github", "linkedin", "weibo", "instapaper", "vk", "whatsapp"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rubend18/manual-de-r/edit/master/04-analisis2.Rmd",
+"text": "Edit "
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/rubend18/manual-de-r/blob/master/04-analisis2.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
